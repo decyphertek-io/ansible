@@ -1,0 +1,37 @@
+- name: Timectl - Synchronize clocks for patching
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    
+    - name: Update & Install ntp
+      apt:
+        update_cache: true
+        pkg:
+          - ntp
+    
+            #- name: Service start ntp
+      #service:
+              #name: ntp
+        #state: started
+        #register: service
+      #- debug: var=service
+
+      #- name: Service enable ntp
+      #service:
+              #name: ntp
+        #state: enabled
+        #register: service
+      #- debug: var=service
+
+    - name: Change timezone to UTC & Check the status of Timectl-NTP
+      shell: |
+        sudo systemctl start ntp
+        sudo systemctl enable ntp
+        timedatectl set-timezone UTC
+        timedatectl set-ntp true
+        sudo systemctl daemon-reload
+        sudo systemctl restart systemd-timesyncd
+        timedatectl status
+      register: timedatectl
+    - debug: var=timedatectl

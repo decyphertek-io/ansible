@@ -1,0 +1,11 @@
+- name: Auditd start
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Service start auditd
+      service:
+        name: auditd
+        state: started
+      register: service
+    - debug: var=service

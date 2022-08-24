@@ -1,0 +1,13 @@
+- name: Template
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: enable SSM service
+      service:
+        name: snap.amazon-ssm-agent.amazon-ssm-agent.service
+        enabled: no
+    - name: Start SSM service
+      service:
+        name: snap.amazon-ssm-agent.amazon-ssm-agent.service
+        state: stopped

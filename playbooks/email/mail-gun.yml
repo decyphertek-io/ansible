@@ -1,0 +1,12 @@
+- name: Deploy Mailgun SMTP configuration
+  hosts: all
+  vars_files: 
+    - /etc/ansible/repo/vault/mailgun.vault
+
+  vars:
+   - mailgun_username: '{{mailgun_username}}'
+   - mailgun_password: '{{mailgun_password}}'
+   - root_forward: '{{root_forward}}'
+
+  roles:
+   - ansible-mailgun

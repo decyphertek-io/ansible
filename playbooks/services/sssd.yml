@@ -1,0 +1,13 @@
+- name: Check to see if SSSD is enabled
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+
+    - name: Check on SSSD 
+      command: sudo service sssd status
+      #service:
+        #name: sssd
+        #state: started   
+      register: service
+    - debug: var=service

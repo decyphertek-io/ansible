@@ -1,0 +1,19 @@
+- name: start cloudwatch check
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Check if enabled
+      service:
+        name: amazon-cloudwatch-agent
+        enabled: yes
+ 
+    - name: start that service
+      service: 
+        name: amazon-cloudwatch-agent  
+        state: started
+
+    - name: check status
+      command: service amazon-clouwatch-agent status
+      register: service
+    - debug: var=service.stdout_lines

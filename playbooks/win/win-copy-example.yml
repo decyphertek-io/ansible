@@ -1,0 +1,20 @@
+- name: WinCopy IN DEV
+  hosts: win
+  debugger: on_skipped
+  vars_files:
+    - /etc/ansible/repo/vault/windows.vault
+
+  vars:
+    - ansible_user: '{{ansible_user}}'
+    - ansible_password: '{{ansible_password}}'
+    - ansible_connection: 'winrm'
+    - ansible_winrm_server_cert_validation: 'ignore'
+    - ansible_port: '5986'
+
+  #Reference - https://geekflare.com/ansible-playbook-windows-example/
+  tasks:
+  - name: Copy File
+    win_copy:
+      src: C:\output.pdf
+      dest: C:\ansible_examples\
+      remote_src: yes

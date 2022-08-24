@@ -1,0 +1,14 @@
+- name: Take snapshot of  AWS volume Playbook
+  hosts: localhost
+  connection: local
+  tasks:
+  
+  - name: Taking snapshot ...
+    amazon.aws.ec2_snapshot:
+      region: us-east-1
+      volume_id: i-000000000
+      description: snapshot of EC2 volume
+    register: snapshot_output
+  - debug:
+      var: snapshot_output
+

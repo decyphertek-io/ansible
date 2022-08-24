@@ -1,0 +1,157 @@
+- name: Unattended-upgrades Security Patching
+  hosts: all
+  debugger: on_skipped
+
+  #ref1 - https://wiki.debian.org/UnattendedUpgrades
+  #refs2 - https://manpages.debian.org/buster/apt-listchanges/apt-listchanges.1.en.html
+
+  tasks:
+    - name: Update & Install unattended-upgrades
+      apt:
+        update_cache: true
+        pkg:
+          - unattended-upgrades
+          - apt-listchanges
+          - debsums
+
+    #- name: Install debian-goodies & echo yes
+      #shell: |
+        #sudo apt install debian-goodies
+        #echo "y"
+
+    #- name: Install apt-show-version | echo "y"
+      #shell: sudo apt-show-versions | echo "y"
+
+    - name: Activate Unattended Upgrades
+      shell: sudo dpkg-reconfigure -plow unattended-upgrades | echo "yes"
+      register: dpkg
+    - debug: var=dpkg.stdout_lines
+
+    - name: 50unattended-upgrades Config -  AutoFixInterruptedDpkg
+      replace:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: '//Unattended-Upgrade::AutoFixInterruptedDpkg "false";'
+        replace: 'Unattended-Upgrade::AutoFixInterruptedDpkg "true";'
+      register: replace
+    - debug: var=replace
+
+    - name: 50unattended-upgrades Config -  mail
+      replace:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: '//Unattended-Upgrade::Mail "root";'
+        replace: 'Unattended-Upgrade::Mail "root";'
+      register: replace
+    - debug: var=replace
+
+    - name: 50unattended-upgrades Config -  Remove-Unused-Kernel-Packages
+      replace:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: '//Unattended-Upgrade::Remove-Unused-Kernel-Packages "false";'
+        replace: 'Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";'
+      register: replace
+    - debug: var=replace
+
+    - name: 50unattended-upgrades Config -  Remove-Unused-Dependencies
+      replace:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: '//Unattended-Upgrade::Remove-Unused-Dependencies "false";'
+        replace: 'Unattended-Upgrade::Remove-Unused-Dependencies "true";'
+      register: replace
+    - debug: var=replace
+
+    - name: 50unattended-upgrades Config - Reboots
+      replace:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: '//Unattended-Upgrade::Automatic-Reboot "false";'
+        replace: 'Unattended-Upgrade::Automatic-Reboot "false";'
+      register: replace
+    - debug: var=replace
+
+    #- name: 20auto-upgrades Config - 1 day to 7 days
+      #replace:
+        #path: /etc/apt/apt.conf.d/20auto-upgrades
+        #regexp: '1'
+        #replace: '7'
+      #register: replace
+    #- debug: var=replace
+
+    - name: Enable apt-daily.timer
+      service:
+        name: apt-daily.timer
+        state: started
+
+    - name: Enable apt-daily-upgrade.timer
+      service:
+        name: apt-daily-upgrade.timer
+        state: started
+
+          # - name: Create a directoy /etc/systemd/system/apt-daily.timer.d
+          #command: sudo mkdir /etc/systemd/system/apt-daily.timer.d
+
+          #- name: CP original apt-daily.timer config
+          #command: sudo cp /lib/systemd/system/apt-daily.timer /etc/systemd/system/apt-daily.timer.d/override.conf
+
+          #- name: apt-daily.timer.d/override.conf - Schedule Downloads Wed at 21:00:00
+          #replace:
+          #path: /etc/systemd/system/apt-daily.timer.d/override.conf
+          #regexp: '\*-\*-\* 6,18:00'
+          #replace: 'Thu 23:33'
+          #register: replace
+          #- debug: var=replace
+
+          #- name: apt-daily.timer.d/override.conf - Set random delay to 1h
+          #replace:
+          #path: /etc/systemd/system/apt-daily.timer.d/override.conf
+          #regexp: '12h'
+          #replace: '1h'
+          #register: replace
+          #- debug: var=replace
+
+          #- name: Create a directoy /etc/systemd/system/apt-daily-upgrade.timer.d
+          #command: sudo mkdir /etc/systemd/system/apt-daily-upgrade.timer.d
+
+          #- name: CP original apt-daily.timer config
+          #command: sudo cp /lib/systemd/system/apt-daily.timer /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+
+          #- name: apt-daily-upgrade.timer.d/override.conf - Schedule Upgrades Wed at 23:33:00
+          # replace:
+          #path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+          #regexp: '\*-\*-\* 6,18:00'
+          #replace: 'Thu 23:33'
+          #register: replace
+          #- debug: var=replace
+
+          #- name: apt-daily-upgrade.timer.d/override.conf - Set random delay to 1h
+          #replace:
+          #path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+          #regexp: '12h'
+          #replace: '1h'
+          #register: replace
+          #- debug: var=replace
+
+          #- name: Restart apt-daily.timer
+          #service:
+          #name: apt-daily.timer
+          #state: restarted
+
+          #- name: Restart apt-daily-upgrade.timer
+          #service:
+          #name: apt-daily-upgrade.timer
+          #state: restarted
+
+          #- name: Systemctl daemon-reload
+          #command: sudo systemctl daemon-reload
+
+ ###Useful Commands : Can be used later ###
+    #- name: Check for Security Upgrades
+      #command: sudo unattended-upgrades -v
+      #register: unattended
+    #- debug: var=unattended.stdout_lines
+    #- name: See apt changes
+      #command: cat /var/log/apt/history.log
+      #register: cat
+    #- debug: var=cat.stdout_lines
+    #- name: List applications installed & Version
+      #command: sudo apt list --installed
+      #register: apt
+      #- debug: var=apt.stdout_lines

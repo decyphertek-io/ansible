@@ -1,0 +1,9 @@
+- name: Collect health logs
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Run Journalctl
+      shell: sudo journalctl | grep -E 'failed|WARNING|ERROR|error|fatal'
+      register: journalctl
+    - debug: var=journalctl

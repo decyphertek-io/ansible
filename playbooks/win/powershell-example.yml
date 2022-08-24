@@ -1,0 +1,18 @@
+- name: Windows test
+  hosts: win
+  debugger: on_skipped
+  vars_files:
+    - /etc/ansible/repo/vault/windows.vault
+
+  vars:
+    - ansible_user: '{{ansible_user}}'
+    - ansible_password: '{{ansible_password}}'
+    - ansible_connection: 'winrm'
+    - ansible_winrm_server_cert_validation: 'ignore'
+    - ansible_port: '5986'
+
+  tasks:
+    - name: Run basic PowerShell script
+      ansible.windows.win_powershell:
+        script: |
+          echo "Hello World"

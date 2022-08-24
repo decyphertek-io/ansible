@@ -1,0 +1,10 @@
+- name: Timedatectl - Status
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+  
+    - name: Check to see the timedateclt status
+      command: timedatectl status
+      register: timedatectl
+    - debug: var=timedatectl

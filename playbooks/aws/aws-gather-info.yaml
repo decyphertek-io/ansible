@@ -1,0 +1,16 @@
+- name: Gather AWS Info
+  hosts: local
+  connection: local
+
+  tasks:
+    - name: Run an AWS command
+      command: aws ec2 describe-instances \ --filters Name=tag-key,Values=Name \ --query 'Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==`Name`]|[0].Value}' \ --output table
+      register: aws_ec2
+    - debug: var=aws_ec2
+
+    #- name: Gather information about all instances in us-east-1
+     # community.aws.ec2_instance_info:
+       # filters:
+         # availability-zone: us-east-1
+      #register: ec2_instance_info
+    #- debug: var=ec2_instance_info

@@ -1,0 +1,21 @@
+- name: SSH Timeout
+  hosts: all
+  debugger: on_skipped
+
+  tasks:  
+
+    - name: SSH Timeout Config - ClientAliveInterval
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: ClientAliveInterval 120
+      register: alive
+    - debug: var=debug
+
+    - name: SSH Timeout Config - ClientAlivemax
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: ClientAliveCountMax 30
+      register: count
+    - debug: var=count
+
+

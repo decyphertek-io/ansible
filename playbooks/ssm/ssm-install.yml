@@ -1,0 +1,20 @@
+- name: Install SSM
+  hosts: all
+  debugger: on_skipped
+  become: yes
+
+  tasks:
+    - name: Update & Install Snapd
+      apt:
+        update_cache: true
+        pkg:
+          - snapd
+  
+    - name: Install SSM agent
+      shell: |
+        sudo snap install amazon-ssm-agent --classic
+        sudo snap start amazon-ssm-agent
+        sudo snap services amazon-ssm-agent
+      register: shell
+    - debug: var=shell
+   

@@ -1,0 +1,28 @@
+- name: Windows test
+  hosts: win
+  debugger: on_skipped
+  vars_files:
+    - /etc/ansible/ansible/vault/windows.vault
+
+  vars:
+    - ansible_user: '{{ansible_user}}'
+    - ansible_password: '{{ansible_password}}'
+    - ansible_connection: 'winrm'
+    - ansible_winrm_server_cert_validation: 'ignore'
+    - ansible_port: '5986'
+
+  #reference - https://geekflare.com/ansible-playbook-windows-example/    
+  tasks:
+    - name: Download the Apache installer
+      win_get_url:
+        url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+        dest: C:\ansible_examples\httpd-2.2.25-win32-x86-no_ssl.msi
+
+    - name: Install MSI
+      win_package: 
+        path: C:\ansible_examples\httpd-2.2.25-win32-x86-no_ssl.msi
+        state: present
+        arguments:
+          - /install
+          - /passive
+          - /norestart

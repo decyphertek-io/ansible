@@ -1,0 +1,24 @@
+- name: Get apt history log last 25 lines
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+   
+    - name: Recent Apt log 
+      command: tail -n 15 /var/log/apt/history.log
+      register: tail
+    - debug: var=tail.stdout_lines     
+
+    - name: What Operating System
+      command: lsb_release -a
+      register: lsb_release
+    - debug: var=lsb_release.stdout_lines
+
+    - name: Is the time synced?
+      command: timedatectl status
+      register: timedatectl
+    - debug: var=timedatectl.stdout_lines
+
+ # General Guidance   
+ # $ sudo ansible-playbook -l server_group apt-log.yml > test.txt
+ # $ cat test.txt | grep -E 'ok:|Commandline:|Upgrade:|Install:|Purge:|Start-Date:|End-Date:' > test-refined.txt 

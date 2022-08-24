@@ -1,0 +1,19 @@
+- name: Zabbix Agent Check
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Check if Zabbix is enabled 
+      service:
+        name: zabbix-agent
+        enabled: yes
+
+    - name: start that service
+      service:
+        name: zabbix-agent
+        state: started
+
+    - name: check status
+      command: service zabbix-agent status
+      register: service
+    - debug: var=service.stdout_lines

@@ -1,0 +1,29 @@
+- name: Check essential services
+  hosts: all
+    #debugger: on_skipped
+
+  tasks:
+
+    - name: Check on Falcon-Sensor
+      service:
+        name: falcon-sensor
+        state: started 
+        enabled: yes   
+      register: falcon
+    - debug: var=falcon
+    
+    - name: Check on Zabbix-Agent
+      service:
+        name: zabbix-agent
+        state: started
+        enabled: yes
+      register: zabbix
+    - debug: var=zabbix
+
+    - name: Check on Auditd
+      service:
+        name: auditd
+        state: started
+        enabled: yes
+      register: auditd
+    - debug: var=auditd  

@@ -1,0 +1,8 @@
+- name: Role Test
+  hosts: all
+  tasks:
+    - import_role:
+        name: role-name
+   
+
+

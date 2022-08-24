@@ -1,0 +1,29 @@
+- name: Sanity check patching config
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+
+    - name: Display all variables/facts known for a host
+      debug:
+        var: hostvars[hosts]
+
+    - name: Leave a message.
+      debug:    
+        msg:
+        - "No Llamas were sacrificed to complete this task. Please be aware we are here to provide a better matrix experience. "
+   
+    - name: Check to make sure patches are configured correctly and working
+      shell: |
+        #sudo snap install cvescan
+        cvescan
+        lsb_release -a
+        sudo systemctl status apt-daily-upgrade.timer
+        timedatectl status
+        tail -n 15 /var/log/apt/history.log
+      register: shell
+    - debug: var=shell.stdout_lines    
+
+ # General Guidance
+ # $ sudo ansible-playbook -l server_group apt-log.yml > test.txt
+ # $ cat test.txt | grep -E 'ok:|Commandline:|Upgrade:|Install:|Purge:|Start-Date:|End-Date:' > test-refined.txt

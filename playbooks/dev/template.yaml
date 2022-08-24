@@ -1,0 +1,28 @@
+# Play attributes can be listed here / block can be under tasks ( Can have a block section if you want though ) 
+# Ref1 - https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html 
+# Ref2 - https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html
+# Ref3 - https://docs.ansible.com/ansible-core/2.11/user_guide/index.html
+# Get feeedback from ansible-lint : $ sudo ansible-lint template.yaml # Can ignore - [201] Trailing whitespace ( I like whitespace, looks cleaner ) 
+# Run the playbook from - $ cd /etc/ansible/playbook : $ sudo ansible-playbook -l test_server template.yaml
+ 
+- name: Template
+  hosts: all
+  debugger: on_skipped
+  
+  role:
+    - name: Roles typically used for Ansible-Galaxy Collections
+      name: role here
+  
+  vars:
+    - name: vars name
+      name: vars name here
+
+  tasks:
+    - name: Run a command
+      command: systemctl status sssd
+   
+    - name: Service start
+      service:
+        name: sssd
+        state: started
+   

@@ -1,0 +1,10 @@
+- name: status falcon-sensor
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Run a command
+      command: systemctl status falcon-sensor
+      register: systemctl
+    - debug: var=systemctl.stdout_lines
+           

@@ -1,0 +1,10 @@
+- name: Aureport
+  hosts: all
+  gather_facts: no
+  
+  tasks:
+    - name: Get the auditd aureport
+      command: sudo aureport
+      register: aureport
+    - debug: var=aureport
+          

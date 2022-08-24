@@ -1,0 +1,19 @@
+- name: Read uname for OS
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Run a command
+      command: uname -a
+      register: uname
+    - debug: var=uname.stdout_lines
+    
+    - name: Run update 
+      command: sudo apt update
+      register: apt
+    - debug: var=apt.stdout_lines      
+
+    - name: Run gpg
+      command: sudo apt search gpg
+      register: apt
+    - debug: var=apt.stdout_lines

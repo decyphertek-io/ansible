@@ -1,0 +1,25 @@
+- name: Email Ansible Reports
+  hosts: local
+  debugger: on_skipped
+    #vars_files:
+    #- ~/ansible/vault/mailgun.vault
+ 
+  vars:
+    - username: '{{username}}'
+    - password: '{{password}}'
+  
+  tasks:
+    - name: Email Reports
+      mail:
+        host: smtp.mailgun.org
+        port: 587
+        username: '{{username}}'
+        password: '{{password}}'
+        from: ansible@domain.com
+        to: email@domain.com
+        subject: Ansible-Report
+        attach: /ansible/reports/test.txt
+        #headers: 'Reply-To=john@example.com|X-Special="Something or other"'
+        body: 'welcome to the matrix, Case.'
+      delegate_to: localhost
+  

@@ -1,0 +1,17 @@
+- name: Get apt history log last 25 lines
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+   #Produced no errors, though di not show up under the /etc/cron.d , where is it? ) 
+    - name: TEST - Creates a cron file under /etc/cron.d 
+      cron:  
+        name: start zabbix-agent
+        job: systemctl start zabbix-agent 
+        weekday: "0" 
+        minute: "1" 
+        hour: "0" 
+      register: cron
+    - debug: var=cron     
+
+ 

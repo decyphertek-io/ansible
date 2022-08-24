@@ -1,0 +1,10 @@
+- name: Template
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Run a command
+      shell: history | grep –E 'sudo curl --insecure|setup_insights|Authorization' 
+      register: history
+    - debug: var=history
+    

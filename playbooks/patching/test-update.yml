@@ -1,0 +1,26 @@
+- name: Master Update
+  hosts: all
+  debugger: on_skipped
+
+  tasks:
+    - name: Remove Grub Password. 
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/grub.d/40_custom
+        - /etc/grub.d/41_custom
+      register: remove
+    - debug: var=remove
+      
+    - name: Update, Upgrade , and clean. 
+      apt:
+        update_cache: yes
+        upgrade: yes
+        autoremove: yes
+        autoclean: yes
+      register: upgrade
+    - debug: var=upgrade
+
+    
+        

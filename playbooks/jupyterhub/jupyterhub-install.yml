@@ -1,0 +1,97 @@
+- name: Jupyterhub Install & SSSD
+  hosts: all
+  debugger: on_skipped
+
+
+# Playbook still in dev. 
+
+  tasks:
+
+    - name: Curl NodeJS Repo
+      shell: |
+        curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash - 
+      register: shell-1
+    - debug: var=shell-1
+   
+    - name: Update & Install Jupyterhub base packages.
+      apt:
+        update_cache: true
+        pkg:
+          - nodejs
+          - python3-pip
+          - sssd
+          - sssd-tools
+          - libnss-sss
+          - libpam-sss
+          - samba-common-bin
+          - packagekit
+          - python-sss
+      register: apt
+    - debug: var=apt
+
+      #- name: Pip Jupyterhub required packages.
+      #pip:
+      #name:
+      #- jupyterhub 
+      #- jupyterlab notebook 
+      #- PyJWT
+      #- oauthenticator
+      #register: pip
+      #- debug: var=pip
+
+    - name: Install npm & generate Jupyterhub config
+      shell: |
+        sudo npm install -g configurable-http-proxy 
+        sudo python3 -m pip install jupyterhub 
+        sudo python3 -m pip install jupyterlab notebook
+        sudo python3 -m pip install PyJWT
+        sudo python3 -m pip install oauthenticator
+        sudo chmod 700 /etc/ssl/private 
+        sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/private-ssl.key -out /etc/ssl/certs/private-ssl.crt 
+        sudo jupyterhub --generate-config
+        sudo mkdir /usr/local/share/jupyter/kernels/R
+      register: shell-2
+    - debug: var=shell-2
+
+    - name: Copy juptyerhub_config.yml & backup exisitng.
+      copy:
+        src: /home/repo/playbooks/jupyterhub/jupyterhub-config/jupyterhub_config.py
+        dest: /home/ubuntu/jupyterhub_config.py
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+
+     - name: Copy sssd.conf & backup exisitng.
+       copy:
+        src: /home/repo/playbooks/jupyterhub/jupyterhub-config/sssd.conf
+        dest: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+
+     - name: Copy 99-custom-dns.yaml & backup exisitng.
+       copy:
+        src: /home/repo/playbooks/jupyterhub/jupyterhub-config/99-custom-dns.yaml
+        dest: /etc/netplan/99-custom-dns.yaml
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+     
+     - name: Copy R Kernel Json & backup exisitng.
+       copy:
+        src: /home/repo/playbooks/jupyterhub/jupyterhub-config/kernel.json
+        dest: /usr/local/share/jupyter/kernels/R/kernel.json
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+
+      # 1.Still need to install r kernel
+      # 2.set password on sssd
+      # 3.set variables on jupyterhub_conf.py ( Save to lastpass, so not stored on Ansible server) 
+      # 4.Start sssd ( Can make ansible do that after reboot via sssd enable, need a reboot to get netplan working ) 
+      # 5. Start Jupyterhub server - nohup jupyterhub -f jupyterhub_config.py &
+      # 6. Test & debug this ansible playbook

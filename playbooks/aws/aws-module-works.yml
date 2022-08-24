@@ -1,0 +1,12 @@
+- name: Gather AWS Info
+  hosts: local
+  connection: local
+
+  vars:
+    boto_profile: aws_profile
+
+  tasks:
+    - name: gather information about an AMI with 'AMI Name' equal to foobar
+      amazon.aws.ec2_ami_info:
+        filters:
+          name: foobar
