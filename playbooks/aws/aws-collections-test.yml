@@ -1,20 +1,17 @@
 - name: Gather AWS Info
   hosts: local
-  connection: local
-  
-  collections:
-  - name: amazon.aws
+  collections: amazon.aws
 
   tasks:
-     - name: Setup an instance for testing
-       amazon.aws.ec2_instance:
-         name: '{{ resource_prefix }}'
-         instance_type: t2.nano
-         image_id: "{{ (amis.images | sort(attribute='creation_date') | last).image_id }}"
-         wait: yes
-         volumes:
-           - device_name: /dev/xvda
-             ebs:
-               volume_size: 8
-               delete_on_termination: true
-       register: instance
+    - name: Setup an instance for testing
+      amazon.aws.ec2_instance:
+        name: '{{ resource_prefix }}'
+        instance_type: t2.nano
+        image_id: "{{ (amis.images | sort(attribute='creation_date') | last).image_id }}"
+        wait: yes
+        volumes:
+          - device_name: /dev/xvda
+            ebs:
+              volume_size: 8
+              delete_on_termination: true
+      register: instance
