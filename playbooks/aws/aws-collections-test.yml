@@ -1,9 +1,9 @@
-- name: Gather AWS Info
+- name: Launch an Ec2 Instance
   hosts: local
   collections: amazon.aws
 
   tasks:
-    - name: Setup an instance for testing
+    - name: Setup an Ec2 instance 
       amazon.aws.ec2_instance:
         name: '{{ resource_prefix }}'
         instance_type: t2.nano
@@ -12,6 +12,6 @@
         volumes:
           - device_name: /dev/xvda
             ebs:
-              volume_size: 8
+              volume_size: 30
               delete_on_termination: true
       register: instance
