@@ -5,8 +5,14 @@
   tasks:
     - name: Setup an Ec2 instance 
       amazon.aws.ec2_instance:
-        name: '{{ resource_prefix }}'
+        aws_profile: default
+        name: Demo
+        key_name: "example-ssh-key"
+        vpc_subnet_id: subnet-5ca1ab1e
         instance_type: t2.nano
+        security_group: default
+        network:
+          assign_public_ip: true
         image_id: "{{ (amis.images | sort(attribute='creation_date') | last).image_id }}"
         wait: yes
         volumes:
@@ -14,4 +20,7 @@
             ebs:
               volume_size: 30
               delete_on_termination: true
+        tags:
+          Environment: Testing
       register: instance
+    - debug: var=instance
