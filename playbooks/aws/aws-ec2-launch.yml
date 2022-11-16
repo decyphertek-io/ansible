@@ -6,14 +6,14 @@
     - name: Setup an Ec2 instance 
       amazon.aws.ec2_instance:
         aws_profile: default
-        name: Demo
-        key_name: "example-ssh-key"
-        vpc_subnet_id: subnet-5ca1ab1e
-        instance_type: t2.nano
-        security_group: default
+        name: Ec2-Ansible
+        image_id: "ami-00000000000"
+        instance_type: t2.medium
+        key_name: "keyname"
+        vpc_subnet_id: subnet-00000000
+        security_group: sg-0000000000
         network:
           assign_public_ip: true
-        image_id: "{{ (amis.images | sort(attribute='creation_date') | last).image_id }}"
         wait: yes
         volumes:
           - device_name: /dev/xvda
@@ -21,6 +21,6 @@
               volume_size: 30
               delete_on_termination: true
         tags:
-          Environment: Testing
+          Environment: 
       register: instance
     - debug: var=instance
