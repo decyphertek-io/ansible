@@ -6,11 +6,10 @@
     - name: Gather Ec2 info via filters
       amazon.aws.ec2_ami_info:
         filters:
-          name: tag-key
-          values: name
-          query: 'Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==`Name`]|[0].Value}'
-          output: table
+          state: available
       register: aws_ec2
     - debug: var=aws_ec2
 
-# References - https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_ami_info_module.html
+ 
+# https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_ami_info_module.html
+# https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html
