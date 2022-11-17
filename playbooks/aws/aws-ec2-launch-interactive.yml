@@ -1,0 +1,36 @@
+- name: Launch an Ec2 Instance interactively
+  hosts: local
+  collections: amazon.aws
+
+  vars_prompt:
+
+    - name: build
+      prompt: What would you like to name the build?
+      private: no
+
+    - name: imageid
+      prompt: Please enter just the Image Id that you want to use. ami-0000000 (image1)  ,ami-00000000 (image2) , or ami-0000000 (image3) ?
+      private: no 
+
+  tasks:
+    - name: Setup an Ec2 instance 
+      amazon.aws.ec2_instance:
+        aws_profile: default
+        name: "{{build}} "
+        image_id: "{{imageid}}"
+        instance_type: t2.medium
+        key_name: "keyname"
+        vpc_subnet_id: subnet-000000
+        security_group: sg-00000000000
+        network:
+          assign_public_ip: true
+        wait: yes
+        volumes:
+          - device_name: /dev/xvda
+            ebs:
+              volume_size: 30
+              delete_on_termination: true
+        tags:
+          Environment: 
+      register: instance
+    - debug: var=instance
