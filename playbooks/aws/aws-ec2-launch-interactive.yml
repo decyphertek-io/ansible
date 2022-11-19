@@ -1,5 +1,5 @@
 - name: Launch an Ec2 Instance interactively
-  hosts: local
+  hosts: localhost
   collections: amazon.aws
 
   vars_prompt:

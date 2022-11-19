@@ -1,5 +1,5 @@
 - name: Gather AWS Info
-  hosts: local
+  hosts: localhost
   connection: local
 
   tasks:

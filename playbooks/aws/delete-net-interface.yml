@@ -1,5 +1,5 @@
 - name: Delete Net Interface
-  hosts: local
+  hosts: localhost
   connection: local
 
   tasks:

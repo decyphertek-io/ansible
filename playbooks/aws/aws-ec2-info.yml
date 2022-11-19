@@ -1,5 +1,5 @@
 - name: Gather AWS Ec2 info
-  hosts: local
+  hosts: localhost
   collections: amazon.aws
 
   tasks:

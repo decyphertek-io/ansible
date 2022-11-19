@@ -1,5 +1,5 @@
 - name: Launch an Ec2 Instance
-  hosts: local
+  hosts: localhost
   collections: amazon.aws
 
   tasks:
