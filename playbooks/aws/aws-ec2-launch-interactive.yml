@@ -25,11 +25,12 @@
         network:
           assign_public_ip: true
         wait: yes
-        volumes:
-          - device_name: /dev/xvda
-            ebs:
-              volume_size: 30
-              delete_on_termination: true
+        # Opational : Additional Volumes + root volume
+        #volumes:
+          #- device_name: /dev/xvda
+            #ebs:
+              #volume_size: 30
+              #delete_on_termination: true
         tags:
           Environment: 
       register: instance
