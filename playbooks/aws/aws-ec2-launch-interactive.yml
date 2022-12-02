@@ -25,7 +25,7 @@
         network:
           assign_public_ip: true
         wait: yes
-        # Opational : Additional Volumes + root volume
+        # Optional : Additional Volumes + root volume
         #volumes:
           #- device_name: /dev/xvda
             #ebs:
