@@ -1,8 +1,0 @@
-[default]
-output = yaml
-region = us-east-1
-
-[profile account-us-east-1]
-output = yaml
-region = us-east-1
-
