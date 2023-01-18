@@ -101,7 +101,9 @@ $ python3 -m pip install -r requirements.txt
 $ curl -k -X GET 'https://<firewall>/api/?type=keygen&user=<username>&password=<password>'
 * Save the API key, since this will be referenced in ansible-vault.
  
-***Ansible Vault***
+Ansible Vault
+-------------
+
 * Easy way , just encrypt the vars file
 $ ansible-vault encrypt variables.vault
 * Choose a password. 
@@ -121,7 +123,9 @@ $ ansible-vault edit variables.vault
 * How to decrypt vault and use with a playbook.
 $ ansible-playbook -l firewall panos_facts.yml --ask-vault-pass
   
-***Bitbucket***
+Bitbucket
+----------
+
 * Clone your branch of ansible
 * https://your-git
 * Ex: Your branch name will differ
@@ -138,7 +142,9 @@ $ git push
 * Can also visualize git changes in desktop gui, if interested.
 $ brew install --cask gitahead
 
-***Crontab Automation Examples***
+Crontab Automation Examples
+----------------------------
+
 $ sudo apt install install cron
 $ sudo systemctl enable cron
 $ sudo systemctl start cron
@@ -165,7 +171,9 @@ $ crontab -e
 0 19 * * * /usr/bin/ansible-playbook /etc/ansible/playbooks/patching/apt-log.yml | grep -E '=>|tail|lsb_release|timedatectl|-' > /etc/ansible/reports/unattended-upgrades.yml
 30 19 * * * /usr/bin/ansible-playbook /etc/ansible/playbooks/email/upgrades-email.yml
  
-***General guidance***
+General guidance
+----------------
+
 * AWS Cli Command via playbook
 $ AWS_PROFILE=prod-us-east-1 ansible-playbook -l local aws-gather-info.yaml
 * Run a basic playbook command
@@ -183,7 +191,9 @@ $ vim ~/ansible/inventory/hosts
 * have to setup ~.aws/config & ~.aws/credentials ,Found in creds pass.
 $ aws configure
  
-***Ansible Docs***
+Ansible Docs
+------------
+
 $ ansible-doc --version
 $ ansible-doc -h
 * Module info:
@@ -193,10 +203,12 @@ $ ansible-doc copy
 $ ansible-doc –type <plugin type>  >>> Example
 $ ansible-doc -t connection -s ssh
  
-***References***
-https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
-https://docs.ansible.com/ansible/latest/cli/ansible-doc.html
-https://docs.ansible.com/ansible/latest/cli/ansible-vault.html
-https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/
-https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/get-started-with-the-pan-os-xml-api/get-your-api-key.html
+References
+----------
+
+    https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+    https://docs.ansible.com/ansible/latest/cli/ansible-doc.html
+    https://docs.ansible.com/ansible/latest/cli/ansible-vault.html
+    https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/
+    https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/get-started-with-the-pan-os-xml-api/get-your-api-key.html
 
