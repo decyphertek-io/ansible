@@ -1,0 +1,2 @@
+  vars:
+    account2: sudo aws sts get-caller-identity --query "Account"
