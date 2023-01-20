@@ -4,6 +4,6 @@
 
   roles:
     - awscli_get_info
-    - awscli_describe_images_interactive
+    - awscli_describe_images
 
   
