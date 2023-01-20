@@ -1,16 +1,61 @@
-amazon.aws.ec2_instance module:
-================================
-
-Supported parameters include:
------------------------------ 
-
-    wait, validate_certs, tags (resource_tags), access_key (aws_access_key, aws_access_key_id, ec2_access_key), security_group, profile (aws_profile), endpoint_url (aws_endpoint_url, ec2_url, s3_url), instance_type, vpc_subnet_id (subnet_id), aws_config, placement_group, network, wait_timeout, image, image_id, name, instance_initiated_shutdown_behavior, launch_template, termination_protection, detailed_monitoring, purge_tags, aws_ca_bundle, debug_botocore_endpoint_logs, count, exact_count, ebs_optimized, session_token (access_token, aws_security_token, aws_session_token, security_token), availability_zone, secret_key (aws_secret_access_key, aws_secret_key, ec2_secret_key), cpu_credit_specification, state, hibernation_options, security_groups, aap_callback (tower_callback), user_data, key_name, region (aws_region, ec2_region), filters, cpu_options, instance_ids, iam_instance_profile (instance_role),
-
 AWS CLI
+========
+
+AWS CLI provides infrastructure as code methodology. 
+
+Install
 -------
 
-    $ aws ec2 describe-instances
-    $ ec2 start-instances --instance-ids i-0000000000000
-    $ ec2 stop-instances --instance-ids i-0000000000000
+     # Linux
+     $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+     $ unzip awscliv2.zip
+     # This saves aws creds under root user.
+     # Beneficial if you have ansible installed via Linux at /etc/ansible/ 
+     $ sudo ./aws/install
+     $ sudo aws configure
+     # Mac
+     $ python3 -m pip install --user awscli
+     # Install Ansible AWS Module
+     $ sudo ansible-galaxy collection install amazon.aws
+
+Basic Commands
+--------------
+
+    # May need to use sudo if install via sudo aws configure. 
+    # List EC2 instances
+    $ aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]' 
+    # List Vpcs
+    $ aws ec2 describe-vpcs
+    # List Subnets
+    $ aws ec2 describe-subnets
+    # List Security Groups
+    $ aws ec2 describe-security-groups --query "SecurityGroups[*].{Name:GroupName,ID:GroupId}"
+    $ aws ec2 describe-security-group-rules --filter Name="group-id",Values="sg-1234567890abcdef0"
+    # Add an inbound rule to security group (cidr range optional)
+    $ aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --protocol tcp \
+    --port 22 \
+    --cidr 203.0.113.0/24
+    # Manage Ec2 state
+    $ aws ec2 start-instances --instance-ids i-1234567890abcdef
+    $ aws ec2 stop-instances --instance-ids i-1234567890abcdef
+    $ aws ec2 terminate-instances --instance-ids i-1234567890abcdef
+    # Create an AMI from an instance ID
+    $ aws ec2 create-image \
+    --instance-id i-1234567890abcdef0 \
+    --name "My server" \
+    --description "An AMI for my server"
+    # Get account number
+    $ aws sts get-caller-identity --query "Account"
+    # List AMI owned by account #
+    $ aws ec2 describe-images --owners 123123123123 --query 'Images[].[ImageId,Name]' | grep "-"
+
+References
+----------
+
+    https://docs.aws.amazon.com/cli/latest/
+    https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/index.html
+
 
     

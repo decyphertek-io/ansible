@@ -1,0 +1,107 @@
+- name: Simple PUT operation
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    src: /usr/local/myfile.txt
+    mode: put
+
+- name: PUT operation from a rendered template
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /object.yaml
+    content: "{{ lookup('template', 'templates/object.yaml.j2') }}"
+    mode: put
+
+- name: Simple PUT operation in Ceph RGW S3
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    src: /usr/local/myfile.txt
+    mode: put
+    ceph: true
+    endpoint_url: "http://localhost:8000"
+
+- name: Simple GET operation
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    dest: /usr/local/myfile.txt
+    mode: get
+
+- name: Get a specific version of an object.
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    version: 48c9ee5131af7a716edc22df9772aa6f
+    dest: /usr/local/myfile.txt
+    mode: get
+
+- name: PUT/upload with metadata
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    src: /usr/local/myfile.txt
+    mode: put
+    metadata: 'Content-Encoding=gzip,Cache-Control=no-cache'
+
+- name: PUT/upload with custom headers
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    src: /usr/local/myfile.txt
+    mode: put
+    headers: 'x-amz-grant-full-control=emailAddress=owner@example.com'
+
+- name: List keys simple
+  amazon.aws.s3_object:
+    bucket: mybucket
+    mode: list
+
+- name: List keys all options
+  amazon.aws.s3_object:
+    bucket: mybucket
+    mode: list
+    prefix: /my/desired/
+    marker: /my/desired/0023.txt
+    max_keys: 472
+
+- name: Create an empty bucket
+  amazon.aws.s3_object:
+    bucket: mybucket
+    mode: create
+    permission: public-read
+
+- name: Create a bucket with key as directory, in the EU region
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/directory/path
+    mode: create
+    region: eu-west-1
+
+- name: Delete a bucket and all contents
+  amazon.aws.s3_object:
+    bucket: mybucket
+    mode: delete
+
+- name: GET an object but don't download if the file checksums match. New in 2.0
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    dest: /usr/local/myfile.txt
+    mode: get
+    overwrite: different
+
+- name: Delete an object from a bucket
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    mode: delobj
+
+- name: Copy an object already stored in another bucket
+  amazon.aws.s3_object:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    mode: copy
+    copy_src:
+        bucket: srcbucket
+        object: /source/key.txt
