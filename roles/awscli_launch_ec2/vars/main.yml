@@ -1,0 +1,5 @@
+build: 
+imageid:
+keyname: 
+vpc_subnet:
+security_group:

@@ -1,32 +1,4 @@
-- name: Launch an Ec2 Instance interactively
-  hosts: localhost
-  collections: amazon.aws
-
-  # Run aws_info.yaml to get data. 
-  vars_prompt:
-
-    - name: build
-      prompt: What would you like to name the build?
-      private: no
-
-    - name: imageid
-      prompt: Please enter just the Image Id that you want to use.
-      private: no 
-
-    - name: keyname
-      prompt: Please enter just the keyname that you want to use. 
-      private: no 
-
-    - name: vpc_subnet
-      prompt: Please enter your vpc you would like to use. 
-      private: no
-
-    - name: security_group
-      prompt: Please Enter your security group.
-      private: no
-      
-  tasks:
-
+    
     - name: Setup an Ec2 instance 
       amazon.aws.ec2_instance:
         aws_profile: default

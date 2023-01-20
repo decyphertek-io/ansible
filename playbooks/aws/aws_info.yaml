@@ -1,0 +1,9 @@
+- name: Launch an Ec2 Instance interactively
+  hosts: localhost
+  collections: amazon.aws
+
+  roles:
+    - /home/adminotaur/Documents/git/ansible/roles/awscli_get_info
+    - /home/adminotaur/Documents/git/ansible/roles/awscli_describe_images_interactive
+
+  

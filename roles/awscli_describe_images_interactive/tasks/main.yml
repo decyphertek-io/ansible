@@ -1,13 +1,5 @@
-# You can permamently add this variable to vars to avoid the vars_prompt.
-vars_prompt:
-
-    - name: account
-      prompt: What is your AWS account number?
-      private: nosudo 
-
-tasks:
-
     - name: AWS Cli Describe Images 
-      shell: sudo aws ec2 describe-images --owners "{account}" --query 'Images[*].[ImageId,Name]' | grep "-"
-      register: shell-1
-    - debug: var=shell-1
+      shell: |
+            sudo aws ec2 describe-images --owners "{{account}}" --query 'Images[*].[ImageId,Name]' | grep "-"
+      register: aws_image
+    - debug: var=aws_image
