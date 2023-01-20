@@ -3,7 +3,7 @@
   collections: amazon.aws
 
   roles:
-    - /home/adminotaur/Documents/git/ansible/roles/awscli_get_info
-    - /home/adminotaur/Documents/git/ansible/roles/awscli_describe_images_interactive
+    - awscli_get_info
+    - awscli_describe_images_interactive
 
   
