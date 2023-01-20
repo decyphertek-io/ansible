@@ -11,5 +11,3 @@
     - debug: var=aws_ec2
 
  
-# https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_ami_info_module.html
-# https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html
