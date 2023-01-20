@@ -4,6 +4,6 @@
 
   tasks:
     - name: Run an AWS command
-      command: aws ec2 describe-instances
+      command: sudo aws ec2 describe-instances
       register: aws_ec2
     - debug: var=aws_ec2

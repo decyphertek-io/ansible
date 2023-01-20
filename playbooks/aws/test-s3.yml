@@ -5,7 +5,7 @@
 
     tasks:
       - name: Create new bucket
-        aws_s3:
+        amazon.aws_s3:
           bucket: ansible-test
           mode: create
           region: us-east-1

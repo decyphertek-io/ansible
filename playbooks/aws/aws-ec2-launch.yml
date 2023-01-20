@@ -2,25 +2,5 @@
   hosts: localhost
   collections: amazon.aws
 
-  tasks:
-    - name: Setup an Ec2 instance 
-      amazon.aws.ec2_instance:
-        aws_profile: default
-        name: Ec2-Ansible
-        image_id: "ami-00000000000"
-        instance_type: t2.medium
-        key_name: "keyname"
-        vpc_subnet_id: subnet-00000000
-        security_group: sg-0000000000
-        network:
-          assign_public_ip: true
-        wait: yes
-        volumes:
-          - device_name: /dev/xvda
-            ebs:
-              volume_size: 30
-              delete_on_termination: true
-        tags:
-          Environment: 
-      register: instance
-    - debug: var=instance
+  roles:
+    - awscli_launch_ec2
