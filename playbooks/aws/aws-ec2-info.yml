@@ -5,6 +5,7 @@
   tasks:
     - name: Gather Ec2 info via filters
       amazon.aws.ec2_ami_info:
+        owners: 099720109477
         filters:
           state: available
       register: aws_ec2

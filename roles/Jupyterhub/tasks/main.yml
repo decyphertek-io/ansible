@@ -1,4 +1,3 @@
-tasks:
 
     - name: Curl NodeJS Repo
       shell: |
