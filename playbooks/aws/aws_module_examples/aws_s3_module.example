@@ -1,3 +1,5 @@
+# https://docs.ansible.com/ansible/latest/collections/amazon/aws/s3_object_module.html#ansible-collections-amazon-aws-s3-object-module
+
 - name: Simple PUT operation
   amazon.aws.s3_object:
     bucket: mybucket
