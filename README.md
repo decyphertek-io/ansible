@@ -66,11 +66,19 @@ Ansible Config/Setup
 AWS Cli Install/Setup
 ---------------------
 
-    $ pip3 install awscli --upgrade --user
-    $ aws configure
-    * Stored here: ~/.aws
-    * update config and credentials from ansible
-    * Example of AWS Config > ~/.aws/config or /root/.aws/config
+     # Linux
+     $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+     $ unzip awscliv2.zip
+     # This saves aws creds under root user.
+     # Beneficial if you have ansible installed via Linux at /etc/ansible/ 
+     $ sudo ./aws/install
+     $ sudo aws configure
+     # Mac
+     $ python3 -m pip install --user awscli
+     # Install Ansible AWS Module
+     $ sudo ansible-galaxy collection install amazon.aws
+
+     * Example of AWS Config > ~/.aws/config or /root/.aws/config
     [default]
     output = yaml
     region = us-east-1
@@ -78,6 +86,7 @@ AWS Cli Install/Setup
     [profile account-us-east-1]
     output = yaml
     region = us-east-1
+
     * Example of AWS Credentials > ~/.aws/credentials or /root/.aws/credentials
     [default]
     aws_access_key_id = add_your_key_here or run aws configure
@@ -88,7 +97,6 @@ AWS Cli Install/Setup
     role_session_name = assumeroleaccountname-us-east-1
     source_profile = default
 
- 
 Collections Setup Palo Alto Example
 ----------------------------------------
 
@@ -189,6 +197,8 @@ General guidance
     $ vim ~/ansible/inventory/hosts
     * have to setup ~.aws/config & ~.aws/credentials ,Found in creds pass.
     $ aws configure
+    * Send email via mailgun
+    $ sudo ansible-playbook -l localhost email.yml --ask-vault-pass
  
 Ansible Docs
 ------------
