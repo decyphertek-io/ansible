@@ -3,8 +3,8 @@
   debugger: on_skipped
 
   tasks:
-   #Produced no errors, though di not show up under the /etc/cron.d , where is it? ) 
-    - name: Zabbix - Creates a cron file under /etc/cron.d 
+   \
+    - name: Zabbix - Creates a cron job. 
       cron:  
         name: start zabbix-agent
         job: systemctl start zabbix-agent 
