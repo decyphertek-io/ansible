@@ -1,0 +1,6 @@
+- name: Crowdsec install & Setup
+  hosts: all
+  debugger: on_skipped
+
+  roles:
+    - crowdsec

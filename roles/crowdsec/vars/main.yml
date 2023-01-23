@@ -1,0 +1,24 @@
+    
+    
+    - name: Download Crowdsec repo
+      shell: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | sudo bash
+      register: repo
+    - debug: var=repo
+    
+    - name: Crowdsec - Update & Install ( Debian-Based)
+      apt:
+        update_cache: true
+        pkg:
+          - crowdsec 
+          - crowdsec-firewall-bouncer-iptables
+        state: latest
+      register: crowdsec
+    - debug: var=crowdsec
+
+    - name: Enable & Start Crowdsec
+      service:
+        name: crowdsec
+        state: started
+        enabled: yes
+      register: start_crowdsec
+    - debug: var=start_crowdsec
