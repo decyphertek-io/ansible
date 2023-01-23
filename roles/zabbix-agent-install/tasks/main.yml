@@ -18,7 +18,7 @@
     
     - name: Install Zabbix Agent 2
       apt:
-        name: agent-install
+        name: zabbix-agent
         state: present
 
     - name: Zabbix Conf Server
