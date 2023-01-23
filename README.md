@@ -120,8 +120,8 @@ Ansible Vault
     * Need to edit the vault, no probs
     $ ansible-vault edit variables.vault
     * How to decrypt vault and use with a playbook.
-    $ ansible-playbook -l firewall panos_facts.yml --ask-vault-pass
-  
+    $ ansible-playbook -l windows choco-update.yml --ask-vault-pass
+
 Bitbucket
 ----------
 
