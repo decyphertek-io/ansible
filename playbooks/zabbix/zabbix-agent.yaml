@@ -1,58 +1,6 @@
-- name: Install Zabbix Agent 2
+- name: Install Zabbix Agent 
   hosts: all
   debugger: on_skipped
 
-  tasks:
-    - name: apt update
-      apt: 
-        update_cache: yes
-       
-    - name: apt install wget
-      apt: 
-        name: wget
-        state: present
-
-    - name: Download Zabbix Agent
-      command: wget https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+bionic_all.deb
-    
-    - name: apt install dpkg
-      apt: 
-        name: dpkg
-        state: present
-
-    - name: Install Zabbix repo
-      command: dpkg -i zabbix-release_5.0-1+bionic_all.deb
-
-    - name: Install Zabbix Agent 2
-      apt:
-        name: zabbix-agent
-        state: present
-
-    - name: Zabbix Conf Server
-      replace:
-        path: /etc/zabbix/zabbix_agentd.conf
-        regexp: '^Server=127\.0\.0\.1$'
-        replace: 'Server=ip-address'
-
-    - name: Zabbix Conf Active Server
-      replace:
-        path: /etc/zabbix/zabbix_agentd.conf
-        regexp: '^ServerActive=127\.0\.0\.1$'
-        replace: '#ServerActve=ip-address'
-
-    - name: Zabbix Conf Host Name
-      replace:
-        path: /etc/zabbix/zabbix_agentd.conf
-        regexp: '^Hostname=Zabbix server$'
-        replace: '#Hostname=domain.com'
- 
-    - name: Enable Zabbix Agent  
-      service:
-        name: zabbix-agent
-        enabled: yes
-
-    - name: Start Zabbix agent
-      service:
-        name: zabbix-agent
-        state: started
-
+  roles:
+    - zabbix-agent-install

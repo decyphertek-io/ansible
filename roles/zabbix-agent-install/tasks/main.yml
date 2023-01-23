@@ -1,0 +1,49 @@
+
+    - name: Debian - Update & Install requirements
+      apt:
+        update_cache: true
+        pkg:
+          - wget
+          - dpkg
+        state: latest
+      register: debian
+    - debug: var=debian 
+
+    - name: Download Zabbix Agent
+      shell: |
+            wget https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+bionic_all.deb
+            dpkg -i zabbix-release_5.0-1+bionic_all.deb
+      register: wget
+    - debug: var=wget
+    
+    - name: Install Zabbix Agent 2
+      apt:
+        name: agent-install
+        state: present
+
+    - name: Zabbix Conf Server
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^Server=127\.0\.0\.1$'
+        replace: 'Server=ip-address'
+
+    - name: Zabbix Conf Active Server
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^ServerActive=127\.0\.0\.1$'
+        replace: '#ServerActve=ip-address'
+
+    - name: Zabbix Conf Host Name
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^Hostname=Zabbix server$'
+        replace: '#Hostname=domain.com'
+    
+    - name: Enable & Start Zabbix
+      service:
+        name: zabbix-agent
+        state: started
+        enabled: yes
+      register: zabbix-agent
+    - debug: var=zabbix-agent
+
