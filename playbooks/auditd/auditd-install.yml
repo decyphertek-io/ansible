@@ -2,44 +2,5 @@
   hosts: all
   debugger: on_skipped
 
-#Work In Progress
-#https://manpages.debian.org/testing/auditd/auditd.8.en.html
-#https://linuxhint.com/auditd_linux_tutorial/ 
-#https://github.com/Neo23x0/auditd/blob/master/audit.rules 
-#https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_the_audit_service
-
-#need to configure the auditd.conf
- 
-  tasks:
-    - name: Update & Install auditd
-      apt:
-        update_cache: true
-        pkg:
-          - auditd
-
-    - name: Copy Auditd Rules 
-      copy:
-        src: /etc/ansible/repo/playbooks/auditd/audit.rules
-        dest: /etc/audit/rules.d/audit.rules  
-      register: copy
-    - debug: var=copy 
-
-    #- name: /etc/audit/auditd.conf - Setup
-      #replace:
-        #path: /etc/audit/auditd.conf
-        #regexp: ''
-        #replace: ''
-      #register: replace
-    #- debug: var=replace
-
-    - name: Service start auditd
-      service:
-        name: auditd
-        state: started
-      register: service
-    - debug: var=service
-
-    - name: Restart to load the newly added rules
-      command: sudo systemctl restart auditd
-      register: command
-    - debug: var=command
+- roles:
+    - auditd

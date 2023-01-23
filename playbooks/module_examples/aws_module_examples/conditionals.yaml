@@ -1,0 +1,40 @@
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html
+
+tasks:
+  - name: Configure SELinux to start mysql on any port
+    ansible.posix.seboolean:
+      name: mysql_connect_any
+      state: true
+      persistent: true
+    when: ansible_selinux.status == "enabled"
+    # all variables can be used directly in conditionals without double curly braces
+
+  - name: Show facts available on the system
+    ansible.builtin.debug:
+    var: ansible_facts
+
+  - name: Shut down Debian flavored systems
+    ansible.builtin.command: /sbin/shutdown -t now
+    when: ansible_facts['os_family'] == "Debian"
+
+  - name: Shut down CentOS 6 and Debian 7 systems
+    ansible.builtin.command: /sbin/shutdown -t now
+    when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6") or
+          (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "7")
+
+  - name: Shut down CentOS 6 systems
+    ansible.builtin.command: /sbin/shutdown -t now
+    when:
+      - ansible_facts['distribution'] == "CentOS"
+      - ansible_facts['distribution_major_version'] == "6"
+
+  - ansible.builtin.shell: echo "only on Red Hat 6, derivatives, and later"
+    when: ansible_facts['os_family'] == "RedHat" and ansible_facts['lsb']['major_release'] | int >= 6
+
+  - name: Register a variable
+    ansible.builtin.shell: cat /etc/motd
+    register: motd_contents
+
+  - name: Use the variable in conditional statement
+    ansible.builtin.shell: echo "motd contains the word hi"
+    when: motd_contents.stdout.find('hi') != -1
