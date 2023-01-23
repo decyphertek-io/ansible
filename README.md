@@ -122,7 +122,7 @@ Ansible Vault
     * How to decrypt vault and use with a playbook.
     $ ansible-playbook -l windows choco-update.yml --ask-vault-pass
 
-Bitbucket
+Git Repo
 ----------
 
     * Clone your branch of ansible
