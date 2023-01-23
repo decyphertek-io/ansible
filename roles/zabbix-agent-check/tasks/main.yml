@@ -1,0 +1,12 @@
+
+    - name: Enable & Start Zabbix
+      service:
+        name: zabbix-agent
+        state: started
+        enabled: yes
+   
+    - name: check status
+      shell: sudo systemctl status zabbix-agent 
+      register: systemctl
+    - debug: var=systemctl
+    - debug: var=systemctl.stdout
