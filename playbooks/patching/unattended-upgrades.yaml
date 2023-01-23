@@ -2,9 +2,6 @@
   hosts: all
   debugger: on_skipped
 
-  #ref1 - https://wiki.debian.org/UnattendedUpgrades
-  #refs2 - https://manpages.debian.org/buster/apt-listchanges/apt-listchanges.1.en.html
-
   tasks:
     - name: Update & Install unattended-upgrades
       apt:
@@ -13,14 +10,6 @@
           - unattended-upgrades
           - apt-listchanges
           - debsums
-
-    #- name: Install debian-goodies & echo yes
-      #shell: |
-        #sudo apt install debian-goodies
-        #echo "y"
-
-    #- name: Install apt-show-version | echo "y"
-      #shell: sudo apt-show-versions | echo "y"
 
     - name: Activate Unattended Upgrades
       shell: sudo dpkg-reconfigure -plow unattended-upgrades | echo "yes"
@@ -67,14 +56,6 @@
       register: replace
     - debug: var=replace
 
-    #- name: 20auto-upgrades Config - 1 day to 7 days
-      #replace:
-        #path: /etc/apt/apt.conf.d/20auto-upgrades
-        #regexp: '1'
-        #replace: '7'
-      #register: replace
-    #- debug: var=replace
-
     - name: Enable apt-daily.timer
       service:
         name: apt-daily.timer
@@ -85,73 +66,6 @@
         name: apt-daily-upgrade.timer
         state: started
 
-          # - name: Create a directoy /etc/systemd/system/apt-daily.timer.d
-          #command: sudo mkdir /etc/systemd/system/apt-daily.timer.d
+ 
+          
 
-          #- name: CP original apt-daily.timer config
-          #command: sudo cp /lib/systemd/system/apt-daily.timer /etc/systemd/system/apt-daily.timer.d/override.conf
-
-          #- name: apt-daily.timer.d/override.conf - Schedule Downloads Wed at 21:00:00
-          #replace:
-          #path: /etc/systemd/system/apt-daily.timer.d/override.conf
-          #regexp: '\*-\*-\* 6,18:00'
-          #replace: 'Thu 23:33'
-          #register: replace
-          #- debug: var=replace
-
-          #- name: apt-daily.timer.d/override.conf - Set random delay to 1h
-          #replace:
-          #path: /etc/systemd/system/apt-daily.timer.d/override.conf
-          #regexp: '12h'
-          #replace: '1h'
-          #register: replace
-          #- debug: var=replace
-
-          #- name: Create a directoy /etc/systemd/system/apt-daily-upgrade.timer.d
-          #command: sudo mkdir /etc/systemd/system/apt-daily-upgrade.timer.d
-
-          #- name: CP original apt-daily.timer config
-          #command: sudo cp /lib/systemd/system/apt-daily.timer /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
-
-          #- name: apt-daily-upgrade.timer.d/override.conf - Schedule Upgrades Wed at 23:33:00
-          # replace:
-          #path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
-          #regexp: '\*-\*-\* 6,18:00'
-          #replace: 'Thu 23:33'
-          #register: replace
-          #- debug: var=replace
-
-          #- name: apt-daily-upgrade.timer.d/override.conf - Set random delay to 1h
-          #replace:
-          #path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
-          #regexp: '12h'
-          #replace: '1h'
-          #register: replace
-          #- debug: var=replace
-
-          #- name: Restart apt-daily.timer
-          #service:
-          #name: apt-daily.timer
-          #state: restarted
-
-          #- name: Restart apt-daily-upgrade.timer
-          #service:
-          #name: apt-daily-upgrade.timer
-          #state: restarted
-
-          #- name: Systemctl daemon-reload
-          #command: sudo systemctl daemon-reload
-
- ###Useful Commands : Can be used later ###
-    #- name: Check for Security Upgrades
-      #command: sudo unattended-upgrades -v
-      #register: unattended
-    #- debug: var=unattended.stdout_lines
-    #- name: See apt changes
-      #command: cat /var/log/apt/history.log
-      #register: cat
-    #- debug: var=cat.stdout_lines
-    #- name: List applications installed & Version
-      #command: sudo apt list --installed
-      #register: apt
-      #- debug: var=apt.stdout_lines

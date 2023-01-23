@@ -10,20 +10,6 @@
         pkg:
           - ntp
     
-            #- name: Service start ntp
-      #service:
-              #name: ntp
-        #state: started
-        #register: service
-      #- debug: var=service
-
-      #- name: Service enable ntp
-      #service:
-              #name: ntp
-        #state: enabled
-        #register: service
-      #- debug: var=service
-
     - name: Change timezone to UTC & Check the status of Timectl-NTP
       shell: |
         sudo systemctl start ntp

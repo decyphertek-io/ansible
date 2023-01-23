@@ -2,9 +2,6 @@
   hosts: all
   debugger: on_skipped
 
-  #ref1 - https://wiki.debian.org/UnattendedUpgrades
-  #refs2 - https://manpages.debian.org/buster/apt-listchanges/apt-listchanges.1.en.html
-
   tasks:
     - name: Update & Install unattended-upgrades
       yum:
@@ -12,13 +9,6 @@
           - yum-cron
         state: present
        
-    #- name: Install debian-goodies & echo yes
-      #shell: |
-        #sudo apt install debian-goodies
-        #echo "y"
-
-    #- name: Install apt-show-version | echo "y"
-      #shell: sudo apt-show-versions | echo "y"
 
     - name: Activate Unattended Upgrades
       shell: sudo dpkg-reconfigure -plow unattended-upgrades | echo "yes"
@@ -64,14 +54,6 @@
         replace: 'Unattended-Upgrade::Automatic-Reboot "false";'
       register: replace
     - debug: var=replace
-
-    #- name: 20auto-upgrades Config - 1 day to 7 days
-      #replace:
-        #path: /etc/apt/apt.conf.d/20auto-upgrades
-        #regexp: '1'
-        #replace: '7'
-      #register: replace
-    #- debug: var=replace
 
     - name: Enable apt-daily.timer
       service:
@@ -139,17 +121,3 @@
 
     - name: Systemctl daemon-reload
       command: sudo systemctl daemon-reload
-
- ###Useful Commands : Can be used later ###
-    #- name: Check for Security Upgrades
-      #command: sudo unattended-upgrades -v
-      #register: unattended
-    #- debug: var=unattended.stdout_lines
-    #- name: See apt changes
-      #command: cat /var/log/apt/history.log
-      #register: cat
-    #- debug: var=cat.stdout_lines
-    #- name: List applications installed & Version
-      #command: sudo apt list --installed
-      #register: apt
-      #- debug: var=apt.stdout_lines
