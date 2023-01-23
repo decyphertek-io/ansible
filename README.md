@@ -97,16 +97,25 @@ AWS Cli Install/Setup
     role_session_name = assumeroleaccountname-us-east-1
     source_profile = default
 
-Collections Setup Palo Alto Example
+Collections Examples
 ----------------------------------------
 
-    $ ansible-galaxy collection install paloaltonetworks.panos
-    $ cd ~/.ansible/collections/ansible_collections/paloaltonetworks/panos
+    * Example1 - Palo Alto
+    * Find out where your ansible collections is. 
+    $ sudo ansible --version
+    $ sudo ansible-galaxy collection install paloaltonetworks.panos
+    * Make sure to reference the right collections location
+    $ cd /root/.ansible/collections/ansible_collections/paloaltonetworks/panos
     * Install Python requirements
     $ python3 -m pip install -r requirements.txt
     * API Command – Palo Alto >>> Add to vars , only API needed and IP of firewall. ( Minus carrot symbols )
     $ curl -k -X GET 'https://<firewall>/api/?type=keygen&user=<username>&password=<password>'
     * Save the API key, since this will be referenced in ansible-vault.
+    
+    * Example2 - Zabbix
+    $ sudo ansible-galaxy collection install community.zabbix
+    $ sudo python3 -m pip install -r /root/.ansible/collections/ansible_collections/community.zabbix/requirements.txt
+    
  
 Ansible Vault
 -------------
