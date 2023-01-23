@@ -1,5 +1,6 @@
-build: 
-imageid:
-keyname: 
-vpc_subnet:
-security_group:
+#region:
+#build: 
+#imageid:
+#keyname: 
+#vpc_subnet:
+#security_group:

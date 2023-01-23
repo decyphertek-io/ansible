@@ -40,7 +40,7 @@
       register: copy2
     - debug: var=copy2 
 
-   - name: Enable & Start Auditd
+    - name: Enable & Start Auditd
       service:
         name: auditd
         state: started

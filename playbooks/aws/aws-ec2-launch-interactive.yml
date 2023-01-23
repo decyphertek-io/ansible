@@ -1,16 +1,24 @@
 - name: Launch an Ec2 Instance interactively
   hosts: localhost
   collections: amazon.aws
-
+  
   # Run aws_info.yaml to get data. 
   vars_prompt:
+
+    - name: region
+      prompt: What region whould you like to deploy to?
+      private: no
 
     - name: build
       prompt: What would you like to name the build?
       private: no
 
     - name: imageid
-      prompt: Please enter just the Image Id that you want to use.
+      prompt: Please enter the Image Id that you want to use.
+      private: no 
+
+    - name: type
+      prompt: Please enter the instance type - EX-t2.micro, t2.medium , t2.large .
       private: no 
 
     - name: keyname
@@ -25,27 +33,7 @@
       prompt: Please Enter your security group.
       private: no
       
-  tasks:
+  roles:
+    - awscli_launch_ec2
 
-    - name: Setup an Ec2 instance 
-      amazon.aws.ec2_instance:
-        aws_profile: default
-        name: "{{build}}"
-        image_id: "{{imageid}}"
-        instance_type: t2.medium
-        key_name: "{{keyname}}"
-        vpc_subnet_id: "{{vpc_subnet}}"
-        security_group: "{{security_group}}"
-        network:
-          assign_public_ip: true
-        wait: yes
-        # Optional : Additional Volumes + root volume
-        #volumes:
-          #- device_name: /dev/xvda
-            #ebs:
-              #volume_size: 30
-              #delete_on_termination: true
-        tags:
-          Environment: 
-      register: instance
-    - debug: var=instance
+    

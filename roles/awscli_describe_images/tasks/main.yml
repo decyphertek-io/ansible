@@ -1,5 +1,0 @@
-    - name: AWS Cli Describe Images 
-      shell: |
-            sudo aws ec2 describe-images --owners "{{account}}" --query 'Images[*].[ImageId,Name]' | grep "-"
-      register: aws_image
-    - debug: var=aws_image
