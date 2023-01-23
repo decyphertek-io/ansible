@@ -1,5 +1,5 @@
 
-    - name: Update & Install auditd
+    - name: Debian - Update & Install auditd
       apt:
         update_cache: true
         pkg:
@@ -7,38 +7,33 @@
           - audispd-plugins
         state: latest
       when: ansible_facts['os_family'] == "Debian"
+      register: debian
+    - debug: var=debian 
 
-    - name: Update & Install auditd
-      yum:
-        update_cache: true
-        pkg:
-          - auditd
-          - audispd-plugins
-        state: latest
-      when: ansible_facts['os_family'] == "RedHat"
+    # Troubleshooting - when command gets stuck at debug?
+    #- name: Redhat - Update & Install auditd
+      #yum:
+        #name:
+          #- auditd
+          #- audispd-plugins
+        #state: latest
+      #when: ansible_facts['os_family'] == "RedHat"  
+      #register: redhat
+    #- debug: var=rehat 
     
-    - name: Update & Install auditd
-      dnf:
-        update_cache: true
-        pkg:
-          - auditd
-          - audispd-plugins
-        state: latest
-      when: ansible_facts['distribution'] == "Fedora"
-
     - name: Copy1 Auditd Rules 
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
         dest: /etc/audit/rules.d/audit.rules  
-      register: copy1
-    - debug: var=copy1 
+      register: rules1
+    - debug: var=rules1 
     
     - name: Copy2 Auditd Rules 
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
         dest: /etc/audit/audit.rules  
-      register: copy2
-    - debug: var=copy2 
+      register: rules2
+    - debug: var=crules2 
 
     - name: Enable & Start Auditd
       service:
