@@ -21,19 +21,19 @@
       #register: redhat
     #- debug: var=rehat 
     
-    - name: Copy1 Auditd Rules 
+    - name: Copy Auditd Rules  > rules.d/
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
         dest: /etc/audit/rules.d/audit.rules  
       register: rules1
     - debug: var=rules1 
     
-    - name: Copy2 Auditd Rules 
+    - name: Copy Auditd Rules > audit/
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
         dest: /etc/audit/audit.rules  
       register: rules2
-    - debug: var=crules2 
+    - debug: var=rules2 
 
     - name: Enable & Start Auditd
       service:
