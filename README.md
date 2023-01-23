@@ -9,41 +9,11 @@ Ubuntu Install
     $ sudo add-apt-repository --yes --update ppa:ansible/ansible
     $ sudo apt update
     $ sudo apt install ansible
-    * <<<OR>>>
-    * Fedora Install
-    $ sudo dnf update
-    $ sudo dnf install ansible
-    * Then download bitbucket to /etc/ansible/ - Your link may differ than mine
-    $ sudo git clone https://your-repo.git
-    * remove the hosts and roles , since they are in the ansible folder
-    $ sudo rm -rf hosts
-    $ sudo rm -rf roles
-    * copy the ansible.cfg from ansible to /etc/ansible
-    $ cd ansible/config
-    $ sudo cp ansible.cfg /etc/ansible/
-    * Add SSH Key
-    $ sudo vim ~/.ssh/void.pem
-    * Download your collections - https://galaxy.ansible.com/ 
-    $ sudo ansible-galaxy collection install paloaltonetworks.panos
-    * Need to sudo su
-    $ cd /root/.ansible/colections/ansible_collections/palo-alto
-    * you may need to install the requirements.txt for some collections or move roles directory to /ansible/roles
-    $ sudo -H pip3 install -r requirements.txt
-
-Access the server
------------------
-
-    $ ssh -i "void.pem" void@0.0.0.0
-    * Access 
-    $ cd ansible
-    * Get Started. README.md in most directories to help
-    $ cat README.md
-    * To run a playbook you need to be in the right directory
-    $ cd ~/ansible/playbook/
-    $ ls
-    * example
-    $ cd aws
-
+    * Keygen can generate keys
+    $ ssh-keygen -t rsa -b 4096
+    * Copy id_rsa.pub > Client servers ~/.ssh/authorized_keys
+    $ sudo chmod 400 ~/.ssh/id_rsa
+   
 Install Ansible on Mac
 ----------------------
 
@@ -53,15 +23,6 @@ Install Ansible on Mac
     $ python3 -m pip install --upgrade pip
     $ python3 -m pip install --user ansible
     $ python3 -m pip install --user paramiko
- 
-Ansible Config/Setup
---------------------
-
-    $ cd ~/ansibe/config/
-    $ cp ansible.cfg ~/.ansible.cfg
-    $ vim ~/.ansible.cfg
-    * change to right paths & directories
-    * Make sure to reference the location of the ansible private key
  
 AWS Cli Install/Setup
 ---------------------
@@ -111,7 +72,7 @@ Collections Examples
     * API Command – Palo Alto >>> Add to vars , only API needed and IP of firewall. ( Minus carrot symbols )
     $ curl -k -X GET 'https://<firewall>/api/?type=keygen&user=<username>&password=<password>'
     * Save the API key, since this will be referenced in ansible-vault.
-    
+
     * Example2 - Zabbix
     $ sudo ansible-galaxy collection install community.zabbix
     $ sudo python3 -m pip install -r /root/.ansible/collections/ansible_collections/community.zabbix/requirements.txt
