@@ -8,5 +8,4 @@
     - name: check status
       shell: sudo systemctl status zabbix-agent 
       register: systemctl
-    - debug: var=systemctl
     - debug: var=systemctl.stdout
