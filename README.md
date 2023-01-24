@@ -82,15 +82,18 @@ Ansible Vault
 -------------
 
     * Easy way , just encrypt the vars file
-    $ ansible-vault encrypt variables.vault
-    * Choose a password. 
+    $ sudo vim /etc/ansible/vault/variable.vault
     * Example of a variable.vault
     ip_address: 'iphere'
     api_key: 'apikeyhere'
+    $ sudo ansible-vault encrypt variables.vault
+    * Choose a password. 
+    * Confirm
+    $ sudo cat /etc/ansible/vault/variable.vault 
     * Make sure Playbook references vars
     * Can reference in ansible.cfg if using just one vault.
     vars_files:
-    - ~/ansible/vault/variables.vault
+    - /etc/ansible/vault/variable.vault
     * vars being referenced stored in ansible vault, example
     vars:
     - ip_address: '{{ ip_address }}'
@@ -98,7 +101,7 @@ Ansible Vault
     * Need to edit the vault, no probs
     $ ansible-vault edit variables.vault
     * How to decrypt vault and use with a playbook.
-    $ ansible-playbook -l windows choco-update.yml --ask-vault-pass
+    $ sudo ansible-playbook -l windows choco-update.yml --ask-vault-pass
 
 Git Repo
 ----------

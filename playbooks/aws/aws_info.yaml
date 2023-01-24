@@ -1,4 +1,4 @@
-- name: Launch an Ec2 Instance interactively
+- name: Get AWS Ec2 related info. 
   hosts: localhost
   collections: amazon.aws
 
