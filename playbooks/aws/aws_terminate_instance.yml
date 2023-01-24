@@ -1,0 +1,11 @@
+- name: Terminate Ec2 instance
+  hosts: localhost
+  collections: amazon.aws
+
+  vars_prompt:
+    - name: instance
+      prompt: What instance id do you want to terminate?
+      private: no
+
+  roles:
+    - awscli_terminate_instance
