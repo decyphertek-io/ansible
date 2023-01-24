@@ -1,7 +1,0 @@
-- name: Get AWS Instance Info
-  hosts: localhost
-  collections: amazon.aws
-
-  roles:
-    - awscli_instance_info
-  
