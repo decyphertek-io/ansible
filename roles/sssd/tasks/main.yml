@@ -1,0 +1,26 @@
+    
+    - name: Update & Install SSSD & Realmd
+      apt:
+        update_cache: true
+        pkg:
+          - sssd
+          - sssd-ad
+          - sssd-tools
+          - realmd
+          - adcli
+          - libnss-sss
+          - libpam-sss
+          - samba-common-bin
+          - packagekit
+          - python3-sss
+        state: latest
+      register: apt
+    - debug: var=apt
+
+    - name: Install npm & generate Jupyterhub config
+      shell: |
+        sudo realm -v discover ad1.example.com
+        echo "{{password}}" | realm join -U "{{username}}" ad1.example.com
+        sudo pam-auth-update --enable mkhomedir
+      register: realm
+    - debug: var=realm

@@ -1,0 +1,15 @@
+- name: SSSD Install
+  hosts: all
+  debugger: on_skipped
+
+  vars_prompt:
+    - name: username
+      prompt: What is your Administrator username?
+      private: yes
+
+    - name: password
+      prompt: What is your Adminostrator password?
+      private: yes
+
+  roles:
+    - sssd
