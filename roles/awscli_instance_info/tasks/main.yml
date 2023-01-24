@@ -1,0 +1,6 @@
+    
+    - name: Check If instance was depoyed. 
+      shell: sudo aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]'
+      register: aws_check
+    - debug: var=aws_check.stdout
+    
