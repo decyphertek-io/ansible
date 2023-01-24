@@ -1,0 +1,36 @@
+
+    - name: Update & Install unattended-upgrades
+      apt:
+        update_cache: true
+        pkg:
+          - unattended-upgrades
+          - apt-listchanges
+          - cron
+      register: install
+    - debug: var=install.stdout_lines
+
+    - name: Enable & Start Unattended Upgrades
+      service:
+        name: unattended-upgrades
+        state: started
+        enabled: yes
+      register: enable
+    - debug: var=enable.stdout_lines
+
+    - name: Activate Unattended Upgrades
+      shell: dpkg-reconfigure -plow unattended-upgrades | echo "yes"
+      register: dpkg
+    - debug: var=dpkg.stdout_lines
+
+    - name: Copy Unattended Upgrades Config
+      copy:
+        src: /etc/ansible/roles/unattneded-upgrades/files/50unattended-upgrades
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        backup: yes  
+      register: copy_config
+    - debug: var=copy_config
+
+    - name: Activate Unattended Upgrades
+      shell: (sudo crontab -l ; echo "30 3 * * * /usr/bin/unattended-upgrades -v")| sudo crontab -
+      register: crontab
+    - debug: var=crontab.stdout_lines

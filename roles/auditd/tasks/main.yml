@@ -25,13 +25,15 @@
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
         dest: /etc/audit/rules.d/audit.rules  
+        backup: yes  
       register: rules1
     - debug: var=rules1 
     
     - name: Copy Auditd Rules > audit/
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
-        dest: /etc/audit/audit.rules  
+        dest: /etc/audit/audit.rules
+        backup: yes    
       register: rules2
     - debug: var=rules2 
 
