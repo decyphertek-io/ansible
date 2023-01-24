@@ -1,0 +1,7 @@
+- name: ntp - Synchronize clocks for patching
+  hosts: all
+  debugger: on_skipped
+
+  roles:
+    - ntp
+
