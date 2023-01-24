@@ -3,7 +3,6 @@
   debugger: on_skipped
 
   tasks:
-   \
     - name: Zabbix - Creates a cron job. 
       cron:  
         name: start zabbix-agent
