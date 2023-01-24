@@ -1,6 +1,6 @@
     
     - name: Terminate Instance IDs
-      shell: sudo aws ec2 terminate-instances aws ec2 terminate-instances --instance-ids "{{instance}}"
+      shell: sudo aws ec2 terminate-instances --instance-ids "{{instance}}"
       register: terminate
     - debug: var=terminate
     
