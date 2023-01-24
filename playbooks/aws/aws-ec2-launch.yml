@@ -2,7 +2,7 @@
   hosts: localhost
   collections: amazon.aws
   vars_files:
-    - /etc/ansible/vault/variables.vault
+    - /etc/ansible/vault/variable.vault
 
   roles:
     - awscli_launch_ec2

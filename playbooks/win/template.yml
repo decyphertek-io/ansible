@@ -2,7 +2,7 @@
   hosts: win
   debugger: on_skipped
   vars_files: 
-    - /etc/ansible/vault/variables.vault 
+    - /etc/ansible/vault/variable.vault 
   
   vars:
     - ansible_user: '{{ansible_user}}'
