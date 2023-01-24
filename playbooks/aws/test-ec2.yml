@@ -1,6 +1,6 @@
 - name: Gather AWS Info
-  hosts: local
-  connection: local
+  hosts: localhost
+  collections: amazon.aws
 
   tasks:
     - name: Run an AWS command

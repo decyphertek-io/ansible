@@ -1,10 +1,10 @@
 - name: Gather AWS Info
-  hosts: local
-  connection: local
+  hosts: localhost
+  collections: amazon.aws
 
   tasks:
     - name: Aws Cli - aws ssm describe-instance-information
-      command: aws ssm describe-instance-information
+      command: sudo aws ssm describe-instance-information
       register: aws_ssm
     - debug: var=aws_ssm
 

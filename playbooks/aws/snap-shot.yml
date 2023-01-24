@@ -1,8 +1,8 @@
-- name: Take snapshot of  AWS volume Playbook
+- name: Take snapshot of  AWS volume 
   hosts: localhost
-  connection: local
+  collections: amazon.aws
+
   tasks:
-  
   - name: Taking snapshot ...
     amazon.aws.ec2_snapshot:
       region: us-east-1
