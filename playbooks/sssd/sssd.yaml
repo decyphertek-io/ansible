@@ -3,12 +3,16 @@
   debugger: on_skipped
 
   vars_prompt:
+    - name: domain
+      prompt: What is your ad domain name you would like to join?
+      private: no
+      
     - name: username
-      prompt: What is your Administrator username?
+      prompt: What is your AD Administrator username?
       private: yes
 
     - name: password
-      prompt: What is your Adminostrator password?
+      prompt: What is your AD Administrator password?
       private: yes
 
   roles:
