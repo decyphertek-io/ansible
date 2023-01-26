@@ -1,0 +1,6 @@
+- name: UFW Install 
+  hosts: all
+  debugger: on_skipped
+
+  roles:
+    - ufw_install

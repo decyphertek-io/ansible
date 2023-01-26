@@ -1,0 +1,28 @@
+
+    - name: Debian - Update & Install UFW
+      apt:
+        update_cache: true
+        pkg:
+          - ufw
+        state: latest
+      register: ufw
+    - debug: var=ufw
+
+    - name: Allow incoming to port 22
+      ufw:
+        rule: allow
+        direction: in
+        proto: tcp
+        port: '22'
+      register: allow
+    - debug: var=allow
+     
+    - name: Enable & Start ufw
+      service:
+        name: ufw
+        state: started
+        enabled: yes
+      register: enable
+    - debug: var=enable
+
+  
