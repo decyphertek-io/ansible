@@ -6,21 +6,19 @@
           - auditd
           - audispd-plugins
         state: latest
-      when: ansible_facts['os_family'] == "Debian"
-      register: debian
-    - debug: var=debian 
+      when: ansible_os_family == 'Debian'
 
     # Troubleshooting - when command gets stuck at debug?
-    #- name: Redhat - Update & Install auditd
-      #yum:
-        #name:
-          #- auditd
-          #- audispd-plugins
-        #state: latest
-      #when: ansible_facts['os_family'] == "RedHat"  
-      #register: redhat
-    #- debug: var=rehat 
-    
+    - name: Redhat - Update & Install auditd
+      yum:
+        name:
+          - auditd
+          - audispd-plugins
+        state: latest
+      when: 
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution != 'Fedora'
+     
     - name: Copy Auditd Rules  > rules.d/
       copy:
         src: /etc/ansible/roles/auditd/files/audit.rules
