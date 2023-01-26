@@ -1,4 +1,5 @@
 # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html
+# Note debugger_onskipped: true > this will cause the skipped condtional statements to open a debugger terminal and get stuck.
 
 tasks:
   - name: Configure SELinux to start mysql on any port
