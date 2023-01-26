@@ -1,0 +1,5 @@
+- name: Quad9 install & Setup
+  hosts: all
+
+  roles:
+    - quad9

@@ -1,0 +1,59 @@
+resolution_type: GETDNS_RESOLUTION_STUB
+dns_transport_list:
+  - GETDNS_TRANSPORT_TLS
+tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
+tls_query_padding_blocksize: 128
+edns_client_subnet_private : 1
+round_robin_upstreams: 1
+idle_timeout: 10000
+listen_addresses:
+  - 127.0.0.1
+  - 0::1
+appdata_dir: "/var/cache/stubby"
+upstream_recursive_servers:
+
+  ###### IPv4 ######
+
+### Quad 9 'secure' service - Filtering=Yes, DNSSEC=Yes, ECS=No
+
+  - address_data: 9.9.9.9
+    tls_auth_name: "dns.quad9.net"
+  - address_data: 149.112.112.112
+    tls_auth_name: "dns.quad9.net"
+
+### Quad 9 'secure /w ECS' service - Filtering=Yes, DNSSEC=Yes, ECS=Yes
+
+#  - address_data: 9.9.9.11
+#    tls_auth_name: "dns11.quad9.net"
+#  - address_data: 149.112.112.11
+#  - tls_auth_name: "dns11.quad9.net
+
+### Quad 9 'insecure' service - Filtering=No, DNSSEC=No, ECS=No
+
+#  - address_data: 9.9.9.10
+#    tls_auth_name: "dns10.quad9.net"
+#  - address_data: 149.112.112.10
+#  - tls_auth_name: "dns10.quad9.net
+
+  ###### IPv6 ######
+
+### Quad 9 'secure' service - Filtering=Yes, DNSSEC=Yes, ECS=No
+
+#  - address_data: 2620:fe::fe
+#    tls_auth_name: "dns.quad9.net"
+#  - address_data: 2620:fe::9
+#    tls_auth_name: "dns.quad9.net"
+
+### Quad 9 'secure /w ECS' service - Filtering=Yes, DNSSEC=Yes, ECS=Yes
+
+#  - address_data: 2620:fe::11
+#    tls_auth_name: "dns11.quad9.net"
+#  - address_data: 2620:fe::fe:11
+#  - tls_auth_name: "dns11.quad9.net
+
+### Quad 9 'insecure' service - No filtering, does DNSSEC
+
+#  - address_data: 2620:fe::10
+#    tls_auth_name: "dns10.quad9.net"
+#  - address_data: 2620:fe::fe:10
+#    tls_auth_name: "dns10.quad9.net"

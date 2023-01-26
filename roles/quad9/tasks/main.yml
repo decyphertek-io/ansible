@@ -1,0 +1,83 @@
+    - name: Debian - Update & Install Quad9 Requirements
+      apt:
+        update_cache: true
+        pkg:
+          - stubby 
+          - resolvconf 
+          - network-manager 
+          - lynx
+        state: latest
+      when: ansible_os_family == 'Debian'
+
+    - name: Redhat - Update & Install Quad9 requirements
+      yum:
+        name:
+          - stubby 
+          - resolvconf 
+          - network-manager 
+          - lynx
+        state: latest
+      when: 
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution != 'Fedora'
+     
+    - name: Copy Quad9 config.
+      copy:
+        src: /etc/ansible/roles/quad9/files/stubby.yml
+        dest: /etc/stubby/stubby.yml
+        backup: yes  
+      register: stubby
+    - debug: var=stubby 
+
+    - name: Enable & Start resolvconf
+      service:
+        name: resolvconf
+        state: started
+        enabled: yes
+      register: resolvconf
+    - debug: var=resolvconf
+
+    - name: Additional Quad9 Configurations.
+      shell: |
+            "echo 'nameserver 127.0.0.1' >> /etc/resolvconf/resolv.conf.d/head"
+            resolvconf -u
+            ufw allow out 853/tcp
+      register: shell
+    - debug: var=shell
+
+    - name: Enable & Start systemd-resolved
+      service:
+        name: systemd-resolved
+        state: started
+        enabled: yes
+      register: resolved
+    - debug: var=resolved
+
+    - name: Enable & Start networkmanager 
+      service:
+        name: NetworkManager
+        state: started
+        enabled: yes
+      register: networkmanager
+    - debug: var=networkmanager
+
+    - name: Enable & Start stubby
+      service:
+        name: stubby 
+        state: started
+        enabled: yes
+      register: stubby
+    - debug: var=stubby
+
+    - name: Verify Quad9 is being utilized. 
+      command: lynx -dump https://on.quad9.net/ 
+      register: lynx
+    - debug: var=lynx
+
+
+   
+           
+   
+
+
+  
