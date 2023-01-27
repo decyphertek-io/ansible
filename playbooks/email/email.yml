@@ -1,13 +1,15 @@
 - name: Email Ansible Reports
-  hosts: local
+  hosts: localhost
   debugger: on_skipped
-    #vars_files:
-    #- ~/ansible/vault/mailgun.vault
+  vars_files:
+    - /etc/ansible/vault/variable.vault
  
   vars:
     - username: '{{username}}'
     - password: '{{password}}'
   
+  # Ansible system requires Postfix to be installed. 
+  # https://www.digitalocean.com/community/tutorials/how-to-set-up-a-mail-relay-with-postfix-and-mailgun-on-ubuntu-16-04
   tasks:
     - name: Email Reports
       mail:
@@ -15,11 +17,11 @@
         port: 587
         username: '{{username}}'
         password: '{{password}}'
-        from: ansible@domain.com
-        to: email@domain.com
+        from: ansible@decyphertek.io
+        to: decyphertek@gmail.com
         subject: Ansible-Report
-        attach: /ansible/reports/test.txt
+        attach: /etc/ansible/reports/test.txt
         #headers: 'Reply-To=john@example.com|X-Special="Something or other"'
-        body: 'welcome to the matrix, Case.'
+        body: 'Welcome to the Matrix, Case.'
       delegate_to: localhost
   
