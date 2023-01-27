@@ -18,7 +18,3 @@
       command: timedatectl status
       register: timedatectl
     - debug: var=timedatectl.stdout_lines
-
- # General Guidance   
- # $ sudo ansible-playbook -l server_group apt-log.yml > test.txt
- # $ cat test.txt | grep -E 'ok:|Commandline:|Upgrade:|Install:|Purge:|Start-Date:|End-Date:' > test-refined.txt 
