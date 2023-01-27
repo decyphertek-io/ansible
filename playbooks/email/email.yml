@@ -9,6 +9,8 @@
     - password: '{{password}}'
  
  # https://github.com/major/ansible-mailgun
+ # Or install and setup postfix 
+ 3 
   tasks:
     - name: Email Reports
       community.general.mail:
