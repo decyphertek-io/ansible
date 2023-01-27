@@ -3,25 +3,24 @@
   debugger: on_skipped
   vars_files:
     - /etc/ansible/vault/variable.vault
- 
+
   vars:
-    - username: '{{username}}'
+    - username: '{{username}}' 
     - password: '{{password}}'
-  
-  # Ansible system requires Postfix to be installed. 
-  # https://www.digitalocean.com/community/tutorials/how-to-set-up-a-mail-relay-with-postfix-and-mailgun-on-ubuntu-16-04
+ 
+ # https://github.com/major/ansible-mailgun
   tasks:
     - name: Email Reports
-      mail:
+      community.general.mail:
         host: smtp.mailgun.org
         port: 587
         username: '{{username}}'
         password: '{{password}}'
-        from: ansible@decyphertek.io
+        from: ansible@hal9000
         to: decyphertek@gmail.com
         subject: Ansible-Report
         attach: /etc/ansible/reports/test.txt
-        #headers: 'Reply-To=john@example.com|X-Special="Something or other"'
         body: 'Welcome to the Matrix, Case.'
       delegate_to: localhost
   
+

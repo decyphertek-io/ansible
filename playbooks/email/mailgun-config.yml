@@ -1,0 +1,5 @@
+- name: Email Ansible Reports
+  hosts: localhost
+  
+  roles:
+    - ansible-mailgun
