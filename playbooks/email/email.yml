@@ -10,7 +10,7 @@
  
  # https://github.com/major/ansible-mailgun
  # Or install and setup postfix 
- 3 
+ # https://www.digitalocean.com/community/tutorials/how-to-set-up-a-mail-relay-with-postfix-and-mailgun-on-ubuntu-16-04
   tasks:
     - name: Email Reports
       community.general.mail:
