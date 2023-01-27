@@ -5,7 +5,7 @@
  
   tasks:
     - name: Mailgun API
-      command: curl -s --user 'api:'{{api}}'' '{{url}}'/messages -F from='Excited User <ansible@localhost>' -F to=decyphertek@gmail.com -F subject='Hello' -F text='Testing some Mailgun awesomeness!'
+      command: curl -s --user 'api:'{{api}}'' '{{url}}'/messages -F from='Excited User <ansible@localhost>' -F to=email@gmail.com -F subject='Hello' -F text='Testing some Mailgun awesomeness!'
       register: mail
     - debug: var=mail
       
