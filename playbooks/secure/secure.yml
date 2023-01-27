@@ -1,0 +1,11 @@
+- name: Security features established on base OS. 
+  hosts: all
+
+  roles:
+    - ufw_install
+    - crowdsec
+    - quad9
+    - unattended-upgrades
+    - auditd
+    - ntp
+    - sssd
