@@ -25,5 +25,18 @@
       register: zabbix
     - debug: var=zabbix
 
+    - name: Create new database Named Zabbix
+      mysql_db:
+        name:
+          - zabbix
+      state: present
+
+    - name: Create database user Zabbix with password and zabbix DB privileges 'WITH GRANT OPTION'
+      mysql_user:
+        name: zabbix@localhost
+        password: '{{zabbix_pass}}'
+        priv: 'zabbix.*:ALL,GRANT'
+        state: present
+
     # Work in Progress:
     # Working on - Mysql & Nginx portion. 
