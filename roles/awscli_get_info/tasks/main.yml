@@ -9,6 +9,7 @@
             sudo aws ec2 describe-subnets | grep -E ' Value:|CidrBlock:|VpcId:|SubnetId'
             sudo aws ec2 describe-key-pairs
             sudo aws ec2 describe-images --owners "{{aws_account.stdout}}" --query 'Images[*].[ImageId,Name]' | grep "-"
+      ignore_errors: true
       register: aws_info
     - debug: var=aws_info.stdout
 
