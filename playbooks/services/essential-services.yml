@@ -1,24 +1,24 @@
 - name: Check essential services
   hosts: all
-    #debugger: on_skipped
+  debugger: on_skipped
 
   tasks:
 
-    - name: Check on Falcon-Sensor
+    - name: Check on Crowdsec.
       service:
-        name: falcon-sensor
+        name: crowdsec
         state: started 
         enabled: yes   
-      register: falcon
-    - debug: var=falcon
+      register: crowdsec
+    - debug: var=crowdsec
     
-    - name: Check on Zabbix-Agent
+    - name: Check on sssd
       service:
-        name: zabbix-agent
+        name: sssd
         state: started
         enabled: yes
-      register: zabbix
-    - debug: var=zabbix
+      register: sssd
+    - debug: var=sssd
 
     - name: Check on Auditd
       service:
