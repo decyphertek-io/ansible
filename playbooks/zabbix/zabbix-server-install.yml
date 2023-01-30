@@ -1,6 +1,9 @@
+# Work in Progress.......
+
 - name: Zabbix 6.0LTS Server Install
   hosts: all
-  debugger: on_skipped
+  vars_files:
+    - /etc/ansible/vault/variable.vault
 
   tasks:
     - name: 
@@ -38,5 +41,66 @@
         priv: 'zabbix.*:ALL,GRANT'
         state: present
 
-    # Work in Progress:
-    # Working on - Mysql & Nginx portion. 
+    - name: Shell command utilizing zcat to set mysql config settings.
+      shell: zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p '{{zabbix_pass}}'
+      register: 
+    - debug: var=shell 
+    
+    - name: Zabbix Conf Server
+      replace:
+        path: /etc/zabbix/zabbix_server.conf 
+        regexp: 'DBPassword=password'
+        replace: 'DBPassword='{{db_password}}''
+
+    - name: Nginx settings listening port. 
+      replace:
+        path: /etc/nginx/conf.d/zabbix.conf
+        regexp: '# listen 8080'
+        replace: 'listen 8080'
+
+     - name: Nginx settings server name.
+       replace:
+         path: /etc/nginx/conf.d/zabbix.conf
+         regexp: '# server_name example.com'
+         replace: 'server_name localhost'
+
+     - name: Enable & Start Zabbix Server
+       service:
+         name: zabbix-server
+         state: started
+         enabled: yes
+       register: zabbix-server
+     - debug: var=zabbix-server
+
+     - name: Enable & Start Zabbix
+       service:
+         name: zabbix-agent
+         state: started
+         enabled: yes
+       register: zabbix-agent
+     - debug: var=zabbix-agent
+
+    - name: Enable & Start Nginx
+       service:
+         name: nginx
+         state: started
+         enabled: yes
+       register: nginx
+     - debug: var=zabbix-nginx
+
+    - name: Enable & Start php-fpm
+       service:
+         name: php-fpm
+         state: started
+         enabled: yes
+       register: php-fpm
+     - debug: var=php-fpm
+
+
+# Missing these configs, maybe can set via mysql.cnf
+# Enable set global true before running zcat . 
+# character set utf8mb4 collate utf8mb4_bin;
+# set global log_bin_trust_function_creators = 1;
+# Disable after mysql configured
+# set global log_bin_trust_function_creators = 0;
+# Revisit regex , make sure you dont need delimiters . 
