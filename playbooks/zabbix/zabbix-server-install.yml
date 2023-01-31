@@ -1,4 +1,3 @@
-# Work in Progress.......
 
 - name: Zabbix 6.0LTS Server Install
   hosts: all
@@ -84,6 +83,9 @@
        register: php-fpm
      - debug: var=php-fpm
 
+
+### References ###
+# https://www.zabbix.com/download?zabbix=6.0&os_distribution=red_hat_enterprise_linux&os_version=8&components=server_frontend_agent&db=mysql&ws=apache
 
 # Missing these configs, maybe can set via mysql.cnf
 # Enable set global true before running zcat . 
