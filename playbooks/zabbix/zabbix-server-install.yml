@@ -95,16 +95,16 @@
         name: zabbix-server
         state: started
         enabled: yes
-      register: zabbix-server
-    - debug: var=zabbix-server
+      register: server
+    - debug: var=server
 
     - name: Enable & Start Zabbix
       service:
         name: zabbix-agent
         state: started
         enabled: yes
-      register: zabbix-agent
-    - debug: var=zabbix-agent
+      register: agent
+    - debug: var=agent
 
     - name: Enable & Start Apache
       service:
@@ -119,8 +119,8 @@
         name: php-fpm
         state: started
         enabled: yes
-      register: php-fpm
-    - debug: var=php-fpm
+      register: php
+    - debug: var=php
 
 
 ### References ###
