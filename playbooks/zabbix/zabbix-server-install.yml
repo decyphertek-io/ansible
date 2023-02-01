@@ -44,7 +44,7 @@
       replace:
         path: /etc/zabbix/zabbix_server.conf
         regexp: 'zabbix_pass'
-        replace: '"{{zabbix_pass}}"'
+        replace: '{{zabbix_pass}}'
 
     - name: Enable & Start Mysql
       service:
