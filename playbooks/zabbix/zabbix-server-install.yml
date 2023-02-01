@@ -22,6 +22,7 @@
           - zabbix-sql-scripts 
           - zabbix-selinux-policy 
           - zabbix-agent 
+          - mysqlclient
         state: latest
       when: ansible_os_family == 'RedHat'
       register: zabbix
