@@ -83,10 +83,8 @@
     - debug: var=zabbix_user
 
     - name: Shell command utilizing gunzip & zcat to set mysql config settings.
-      shell: sudo zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p'{{zabbix_pass}}' zabbix
-      register: zcat
-    - debug: var=zcat
-
+      shell: zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p'{{zabbix_pass}}' zabbix
+     
     - name: Shell command utilizing Openssl. 
       shell: |
             openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt -subj "/C=US/ST=Any/L=Anytown/O=decyphertek-io/OU=adminotaur/CN=decyphertek"
