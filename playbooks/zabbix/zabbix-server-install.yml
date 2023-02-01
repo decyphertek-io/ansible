@@ -22,14 +22,18 @@
           - zabbix-sql-scripts 
           - zabbix-selinux-policy 
           - zabbix-agent 
-          - mysqlclient
+          - python3-PyMySQL
         state: latest
       when: ansible_os_family == 'RedHat'
       register: zabbix
     - debug: var=zabbix
 
+# msg: 'unable to find /root/.my.cnf. Exception message: (2003, "Can''t connect to MySQL server on ''localhost'' ([Errno 2] No such file or directory)")'
+# Troubleshooting error
+
     - name: Create new database Named Zabbix
       mysql_db:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
         name:
           - zabbix
         state: present
