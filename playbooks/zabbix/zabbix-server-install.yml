@@ -40,6 +40,12 @@
         dest: /etc/zabbix/zabbix_server.conf
         backup: yes
 
+    - name: Zabbix Conf Server
+      replace:
+        path: /etc/zabbix/zabbix_server.conf
+        regexp: 'zabbix_pass'
+        replace: '"{{zabbix_pass}}"'
+
     - name: Enable & Start MariaDB
       service:
         name: mariadb
