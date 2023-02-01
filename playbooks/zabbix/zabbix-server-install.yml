@@ -22,7 +22,7 @@
           - zabbix-selinux-policy 
           - zabbix-agent 
           - python3-PyMySQL
-          - mariadb-server
+          - mysql-server
         state: latest
       when: ansible_os_family == 'RedHat'
       register: zabbix
@@ -46,13 +46,13 @@
         regexp: 'zabbix_pass'
         replace: '"{{zabbix_pass}}"'
 
-    - name: Enable & Start MariaDB
+    - name: Enable & Start Mysql
       service:
-        name: mariadb
+        name: mysqld
         state: started
         enabled: yes
-      register: mariadb
-    - debug: var=mariadb
+      register: mysqld
+    - debug: var=mysqld
 
     - name: Set root user password
       mysql_user:
