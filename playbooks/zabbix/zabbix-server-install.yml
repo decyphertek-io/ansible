@@ -83,9 +83,7 @@
     - debug: var=zabbix_user
 
     - name: Shell command utilizing gunzip & zcat to set mysql config settings.
-      shell: |
-            gunzip -d /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
-            zcat /usr/share/zabbix-sql-scripts/mysql/server.sql | mysql -uzabbix -p'{{zabbix_pass}}' zabbix
+      shell: sudo zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p'{{zabbix_pass}}' zabbix
       register: zcat
     - debug: var=zcat
 
