@@ -48,6 +48,8 @@
       register: mariadb
     - debug: var=mariadb
 
+    # Having issues connecting to Database using mysql module, getting /root/.my.cnf errors
+    # Troubelshooting, maybe just utilize mysqladmin.
     - name: Set root user password
       mysql_user:
         name: root
