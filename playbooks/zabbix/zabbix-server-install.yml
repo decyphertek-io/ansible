@@ -87,9 +87,7 @@
       shell: | 
             gunzip -d /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
             mysql -uroot -p'{{mysql_root_password}}' zabbix < /usr/share/zabbix-sql-scripts/mysql/server.sql
-      register: zcat
-    - debug: var=zcat
-
+     
     - name: Zabbix - set Global log-bin-trust-function-creators = 0 
       replace:
         path: /etc/my.cnf
