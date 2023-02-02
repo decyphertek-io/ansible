@@ -149,12 +149,9 @@
 ### References ###
 # https://www.zabbix.com/download?zabbix=6.0&os_distribution=red_hat_enterprise_linux&os_version=8&components=server_frontend_agent&db=mysql&ws=apache
 
-# Missing these configs, maybe can set via mysql.cnf
-# Enable set global true before running zcat . 
-# set global log_bin_trust_function_creators = 1;
-# Disable after mysql configured
-# set global log_bin_trust_function_creators = 0;
-# Importing DB Schema only works after running gunzip and removing specialized paramters. 
+
+
+
 
 
 
