@@ -82,6 +82,7 @@
       register: zabbix_user
     - debug: var=zabbix_user
 
+    # Still Experiencing DB Issues, either mysql-server install not required or its the DB schema / db import . 
     - name: Shell command utilizing gunzip & zcat to set mysql config settings.
       shell: | 
             gunzip -d /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
