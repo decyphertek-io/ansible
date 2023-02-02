@@ -28,10 +28,10 @@
       register: zabbix
     - debug: var=zabbix
 
-    - name: Set my.cnf 
+    - name: Set my.cnf /etc
       copy:
         src: /etc/ansible/roles/zabbix-server-install/files/my.cnf
-        dest: /root/.my.cnf
+        dest: /etc/my.cnf
         backup: yes
 
     - name: Copy Zabbix configuration
@@ -83,13 +83,19 @@
     - debug: var=zabbix_user
 
     # Still Experiencing DB Issues, either mysql-server install not required or its the DB schema / db import .
-    - name: Shell command utilizing gunzip & zcat to set mysql config settings.
+    - name: Shell command utilizing gunzip to set mysql config settings.
       shell: | 
             gunzip -d /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
-            mysql -uzabbix -p'{{zabbix_pass}}' zabbix < /usr/share/zabbix-sql-scripts/mysql/server.sql
+            mysql -uroot -p'{{mysql_root_password}}' zabbix < /usr/share/zabbix-sql-scripts/mysql/server.sql
       register: zcat
     - debug: var=zcat
 
+    - name: Zabbix - set Global log-bin-trust-function-creators = 0 
+      replace:
+        path: /etc/my.cnf
+        regexp: 'log-bin-trust-function-creators = 1'
+        replace: 'log-bin-trust-function-creators = 0'
+    
     - name: Shell command utilizing Openssl. 
       shell: |
             openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt -subj "/C=US/ST=Any/L=Anytown/O=decyphertek-io/OU=adminotaur/CN=decyphertek"
@@ -135,7 +141,6 @@
 
 # Missing these configs, maybe can set via mysql.cnf
 # Enable set global true before running zcat . 
-# character set utf8mb4 collate utf8mb4_bin;
 # set global log_bin_trust_function_creators = 1;
 # Disable after mysql configured
 # set global log_bin_trust_function_creators = 0;
