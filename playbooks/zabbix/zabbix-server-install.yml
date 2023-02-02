@@ -34,6 +34,18 @@
         dest: /etc/my.cnf
         backup: yes
 
+    - name: Set client.cnf /etc/my.cnf.d
+      copy:
+        src: /etc/ansible/roles/zabbix-server-install/files/client.cnf
+        dest: /etc/my.cnf.d/client.cnf
+        backup: yes
+
+    - name: Set mysql-server.cnf /etc/my.cnf.d
+      copy:
+        src: /etc/ansible/roles/zabbix-server-install/files/mysql-server.cnf
+        dest: /etc/my.cnf.d/mysql-server.cnf
+        backup: yes
+
     - name: Copy Zabbix configuration
       copy:
         src: /etc/ansible/roles/zabbix-server-install/files/zabbix_server.conf
@@ -86,11 +98,11 @@
     - name: Shell command utilizing gunzip to set mysql config settings.
       shell: | 
             gunzip -d /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
-            mysql -uroot -p'{{mysql_root_password}}' zabbix < /usr/share/zabbix-sql-scripts/mysql/server.sql
+            mysql -uroot -p{{mysql_root_password}} zabbix < /usr/share/zabbix-sql-scripts/mysql/server.sql
      
     - name: Zabbix - set Global log-bin-trust-function-creators = 0 
       replace:
-        path: /etc/my.cnf
+        path: /etc/my.cnf.d/mysql-server.cnf
         regexp: 'log-bin-trust-function-creators = 1'
         replace: 'log-bin-trust-function-creators = 0'
     
