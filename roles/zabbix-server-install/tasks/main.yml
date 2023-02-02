@@ -142,3 +142,6 @@
 
 ### References ###
 # https://www.zabbix.com/download?zabbix=6.0&os_distribution=red_hat_enterprise_linux&os_version=8&components=server_frontend_agent&db=mysql&ws=apache
+# http://ip_of_server/zabbix
+# Follow Zabbix Setup
+# Login > User: Admin ; Pass: zabbix
