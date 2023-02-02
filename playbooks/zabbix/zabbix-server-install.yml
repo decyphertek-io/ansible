@@ -54,13 +54,13 @@
       register: mysqld
     - debug: var=mysqld
 
-    #- name: Set root user password
-      #mysql_user:
-        #name: root
-        #password: '{{mysql_root_password}}'
-        #login_user: root
-      #register: root_pass
-    #- debug: var=root_pass
+    - name: Set root user password
+      mysql_user:
+        name: root
+        password: '{{mysql_root_password}}'
+        login_user: root
+      register: root_pass
+    - debug: var=root_pass
 
     - name: Create new database Named Zabbix
       mysql_db:
