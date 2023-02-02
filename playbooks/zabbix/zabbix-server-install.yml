@@ -34,18 +34,6 @@
         dest: /etc/my.cnf
         backup: yes
 
-    - name: Set client.cnf /etc/my.cnf.d
-      copy:
-        src: /etc/ansible/roles/zabbix-server-install/files/client.cnf
-        dest: /etc/my.cnf.d/client.cnf
-        backup: yes
-
-    - name: Set mysql-server.cnf /etc/my.cnf.d
-      copy:
-        src: /etc/ansible/roles/zabbix-server-install/files/mysql-server.cnf
-        dest: /etc/my.cnf.d/mysql-server.cnf
-        backup: yes
-
     - name: Copy Zabbix configuration
       copy:
         src: /etc/ansible/roles/zabbix-server-install/files/zabbix_server.conf
@@ -102,7 +90,7 @@
      
     - name: Zabbix - set Global log-bin-trust-function-creators = 0 
       replace:
-        path: /etc/my.cnf.d/mysql-server.cnf
+        path: /etc/my.cnf
         regexp: 'log-bin-trust-function-creators = 1'
         replace: 'log-bin-trust-function-creators = 0'
     
