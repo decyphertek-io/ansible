@@ -87,7 +87,7 @@
     - name: Shell command utilizing gunzip to set mysql config settings.
       shell: gunzip -d /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
 
-    - name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
+    - name: Import Zabbix server.sql similar to mysql -uroot -p<password> < server.sql
       mysql_db:
         state: import
         name: zabbix
