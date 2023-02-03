@@ -1,0 +1,8 @@
+- name: Upgrade Debian system
+  hosts: all
+
+  roles:
+    - debian-upgrade
+
+
+
