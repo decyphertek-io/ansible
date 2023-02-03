@@ -10,7 +10,6 @@
           - libvirt-daemon-system 
           - cockpit
           - cockpit-machines
-        when: ansible_os_family == 'Debian'
         state: latest
       when: ansible_os_family == 'Debian'
 
