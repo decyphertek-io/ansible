@@ -5,5 +5,9 @@
     - debian-upgrade
     - qemu-kvm
 
+  # Issues Software Updates - /etc/netplan/50-cloud-init.yaml > renderer: NetworkManager ???
+  # PodMan Logs > Error
+
+
 
     
