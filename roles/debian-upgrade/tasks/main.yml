@@ -3,7 +3,7 @@
             sudo dpkg --configure -a
             sudo apt install -f 
             
-    - name: Upgrade the OS (apt-get dist-upgrade)
+    - name: Debian - Update , Upgrade , Autoclean , Autoremove, & Recommendations=no . 
       apt:
         update_cache: yes
         upgrade: yes
