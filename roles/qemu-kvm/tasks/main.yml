@@ -1,0 +1,36 @@
+    - name: Upgrade system.
+      command: apt update && apt upgrade
+
+    - name: Install qemu-kvm & Cockpit.
+      apt:
+        update_cache: true
+        pkg:
+          - qemu-kvm 
+          - virtinst 
+          - libvirt-clients 
+          - bridge-utils 
+          - libvirt-daemon-system 
+          - cockpit
+          - cockpit-machines
+          when: ansible_os_family == 'Debian'
+        state: latest
+      when: ansible_os_family == 'Debian'
+    
+    - name: Enable & Start LibvirtD.
+      service:
+        name: libvirtd
+        state: started
+        enabled: yes
+
+    - name: Enable & Start Cockpit.
+      service:
+        name: Cockpit
+        state: started
+        enabled: yes
+    
+    - name: Allow incoming to port 9090.
+      ufw:
+        rule: allow
+        direction: in
+        proto: tcp
+        port: '9090'

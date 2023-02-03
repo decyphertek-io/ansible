@@ -1,0 +1,8 @@
+- name: Install Qemu-Kvm on Ubuntu
+  hosts: all
+  
+  roles:
+    - qemu-kvm
+
+
+    
