@@ -10,6 +10,10 @@
           - libvirt-daemon-system 
           - cockpit
           - cockpit-machines
+          - cockpit-storaged
+          - cockpit-networkmanager
+          - cockpit-packagekit
+          - cockpit-podman
         state: latest
       when: ansible_os_family == 'Debian'
 
