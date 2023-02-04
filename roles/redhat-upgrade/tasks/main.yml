@@ -2,6 +2,10 @@
       dnf:
         name: "*"
         state: latest
+      when: ansible_os_family == 'RedHat'
+
+    - name: Autoremove unneeded packages installed as dependencies
+      dnf:
         autoremove: yes
       when: ansible_os_family == 'RedHat'
             
