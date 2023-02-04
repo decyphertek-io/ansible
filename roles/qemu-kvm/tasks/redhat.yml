@@ -40,6 +40,12 @@
         permanent: true
         state: enabled
 
+    - name: permit traffic in default zone for Cokcpit.  
+      ansible.posix.firewalld:
+        port: 9090/tcp
+        permanent: true
+        state: enabled
+
     - name: Enable & Firewalld
       service:
         name: firewalld.service
