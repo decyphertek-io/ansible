@@ -4,8 +4,6 @@
           - qemu-kvm 
           - qemu-img 
           - libvirt 
-          - libvirt-python
-          - python-virtinst
           - virt-install 
           - libvirt-client
           - cockpit
@@ -14,15 +12,11 @@
           - cockpit-networkmanager
           - cockpit-packagekit
           - cockpit-podman
-          - cockpit-ostree
           - cockpit-selinux
           - cockpit-kdump
-          - cockpit-certificates
           - cockpit-sosreport
           - cockpit-composer
-          - cockpit-389-ds
           - cockpit-session-recording
-          - cockpit-zfs
           - firewalld 
           - firewall-config
         state: latest
