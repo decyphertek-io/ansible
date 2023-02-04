@@ -8,9 +8,9 @@
     - qemu-kvm
 
   # Debian >>> Issues. 
-  # Issues Software Updates - /etc/netplan/50-cloud-init.yaml > renderer: NetworkManager ???
+  # Issues Software Updates 
   # PodMan Logs > Error
-  # Woking on Red Hat Build , should resolve these issues. 
+  
 
 
 
