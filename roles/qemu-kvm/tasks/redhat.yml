@@ -1,0 +1,53 @@
+    - name: Install qemu-kvm & Cockpit.
+      dnf:
+        name:
+          - qemu-kvm 
+          - qemu-img 
+          - libvirt 
+          - libvirt-python
+          - python-virtinst
+          - virt-install 
+          - libvirt-client
+          - cockpit
+          - cockpit-machines
+          - cockpit-storaged
+          - cockpit-networkmanager
+          - cockpit-packagekit
+          - cockpit-podman
+          - cockpit-ostree
+          - cockpit-selinux
+          - cockpit-kdump
+          - cockpit-certificates
+          - cockpit-sosreport
+          - cockpit-composer
+          - cockpit-389-ds
+          - cockpit-session-recording
+          - cockpit-zfs
+          - firewalld 
+          - firewall-config
+        state: latest
+      when: ansible_os_family == 'RedHat'
+
+    - name: Enable & Start LibvirtD.
+      service:
+        name: libvirtd
+        state: started
+        enabled: yes
+
+    - name: Enable & Start Cockpit.
+      service:
+        name: cockpit.socket
+        state: started
+        enabled: yes
+   
+    - name: permit traffic in default zone for ssh. 
+      ansible.posix.firewalld:
+        service: ssh
+        permanent: true
+        state: enabled
+
+    - name: Enable & Firewalld
+      service:
+        name: firewalld.service
+        state: started
+        enabled: yes

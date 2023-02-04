@@ -2,6 +2,7 @@
       shell: |
             sudo dpkg --configure -a
             sudo apt install -f 
+      when: ansible_os_family == 'Debian'
             
     - name: Debian - Update , Upgrade , Autoclean , Autoremove, & Recommendations=no . 
       apt:
@@ -10,3 +11,4 @@
         autoclean: yes
         autoremove: yes
         install_recommends: no
+      when: ansible_os_family == 'Debian'

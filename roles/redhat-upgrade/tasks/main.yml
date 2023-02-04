@@ -1,0 +1,6 @@
+    - name: RedHat - Upgrade base system. 
+      shell: |
+            sudo dnf update
+            sudo dnf clean 
+      when: ansible_os_family == 'RedHat'
+            

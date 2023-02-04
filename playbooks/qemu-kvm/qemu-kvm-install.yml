@@ -1,10 +1,13 @@
 - name: Install Qemu-Kvm on Ubuntu
   hosts: all
+  collections: ansible.posix
   
   roles:
     - debian-upgrade
+    - redhat-upgrade
     - qemu-kvm
 
+  # Debian >>> Issues. 
   # Issues Software Updates - /etc/netplan/50-cloud-init.yaml > renderer: NetworkManager ???
   # PodMan Logs > Error
   # Woking on Red Hat Build , should resolve these issues. 

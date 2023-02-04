@@ -1,37 +1,7 @@
+  - import_tasks: redhat.yml
+    when:
+      - ansible_os_family == 'RedHat'
+      - ansible_distribution != 'Fedora'
 
-    - name: Install qemu-kvm & Cockpit.
-      apt:
-        update_cache: true
-        pkg:
-          - qemu-kvm 
-          - virtinst 
-          - libvirt-clients 
-          - bridge-utils 
-          - libvirt-daemon-system 
-          - cockpit
-          - cockpit-machines
-          - cockpit-storaged
-          - cockpit-networkmanager
-          - cockpit-packagekit
-          - cockpit-podman
-        state: latest
-      when: ansible_os_family == 'Debian'
-
-    - name: Enable & Start LibvirtD.
-      service:
-        name: libvirtd
-        state: started
-        enabled: yes
-
-    - name: Enable & Start Cockpit.
-      service:
-        name: cockpit.socket
-        state: started
-        enabled: yes
-    
-    - name: Allow incoming to port 9090.
-      ufw:
-        rule: allow
-        direction: in
-        proto: tcp
-        port: '9090'
+  - import_tasks: debian.yml
+    when: ansible_os_family == 'Debian'
