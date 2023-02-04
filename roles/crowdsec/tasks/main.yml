@@ -1,8 +1,7 @@
   
     - name: Download Crowdsec repo
       shell: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | sudo bash
-      register: repo
-    - debug: var=repo
+      when: ansible_os_family == 'Debian'
     
     - name: Crowdsec - Update & Install ( Debian-Based)
       apt:
@@ -11,13 +10,11 @@
           - crowdsec 
           - crowdsec-firewall-bouncer-iptables
         state: latest
-      register: crowdsec
-    - debug: var=crowdsec
+      when: ansible_os_family == 'Debian'
 
     - name: Enable & Start Crowdsec
       service:
         name: crowdsec
         state: started
         enabled: yes
-      register: start_crowdsec
-    - debug: var=start_crowdsec
+      when: ansible_os_family == 'Debian'

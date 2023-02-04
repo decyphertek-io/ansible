@@ -1,0 +1,23 @@
+    - name: Install Firewalld. 
+      dnf:
+        name:
+          - firewalld 
+          - firewall-config
+        state: latest
+      when: ansible_os_family == 'RedHat'
+
+    - name: permit traffic in default zone for ssh. 
+      ansible.posix.firewalld:
+        service: ssh
+        permanent: true
+        state: enabled
+      when: ansible_os_family == 'RedHat'
+
+    - name: Enable & Firewalld
+      service:
+        name: firewalld.service
+        state: started
+        enabled: yes
+      when: ansible_os_family == 'RedHat'
+
+  

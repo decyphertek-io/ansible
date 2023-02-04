@@ -1,8 +1,10 @@
 - name: Security features established on base OS. 
   hosts: all
+  collections: ansible.posix
 
   roles:
     - ufw_install
+    - firewalld
     - crowdsec
     - quad9
     - unattended-upgrades

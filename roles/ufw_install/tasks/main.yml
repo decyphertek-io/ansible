@@ -5,24 +5,22 @@
         pkg:
           - ufw
         state: latest
-      register: ufw
-    - debug: var=ufw
-
+      when: ansible_os_family == 'Debian'
+   
     - name: Allow incoming to port 22
       ufw:
         rule: allow
         direction: in
         proto: tcp
         port: '22'
-      register: allow
-    - debug: var=allow
-     
+      when: ansible_os_family == 'Debian'
+    
     - name: Enable & Start ufw
       service:
         name: ufw
         state: started
         enabled: yes
-      register: enable
-    - debug: var=enable
+      when: ansible_os_family == 'Debian'
+    
 
   

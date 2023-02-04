@@ -21,12 +21,14 @@
         name: libvirtd
         state: started
         enabled: yes
+      when: ansible_os_family == 'Debian'
 
     - name: Enable & Start Cockpit.
       service:
         name: cockpit.socket
         state: started
         enabled: yes
+      when: ansible_os_family == 'Debian'
     
     - name: Allow incoming to port 9090.
       ufw:
@@ -34,3 +36,4 @@
         direction: in
         proto: tcp
         port: '9090'
+      when: ansible_os_family == 'Debian'
