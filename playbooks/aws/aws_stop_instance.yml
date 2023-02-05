@@ -1,0 +1,6 @@
+- name: Stop Ec2 instance
+  hosts: localhost
+  collections: amazon.aws
+
+  roles:
+    - awscli_stop_instance
