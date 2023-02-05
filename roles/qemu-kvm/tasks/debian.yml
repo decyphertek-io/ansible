@@ -8,6 +8,7 @@
           - bridge-utils 
           - libvirt-daemon-system 
           - cockpit
+          - podman
           - cockpit-machines
           - cockpit-storaged
           - cockpit-networkmanager
