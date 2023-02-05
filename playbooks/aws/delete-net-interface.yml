@@ -2,15 +2,11 @@
   hosts: localhost
   collections: amazon.aws
 
+  # Work in progress, need to set eni as a variable and need to output available net interfaces.
   tasks:
     - name: Run an AWS command
       command: sudo aws ec2 delete-network-interface --network-interface-id eni-0000000
       register: aws_ec2
     - debug: var=aws_ec2
 
-    #- name: Gather information about all instances in us-east-1
-     # community.aws.ec2_instance_info:
-       # filters:
-         # availability-zone: us-east-1
-      #register: ec2_instance_info
-    #- debug: var=ec2_instance_info
+ 

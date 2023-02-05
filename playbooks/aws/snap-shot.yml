@@ -2,6 +2,7 @@
   hosts: localhost
   collections: amazon.aws
 
+  # Work in progress... Need to set volume ID as a variable and list available volumes. 
   tasks:
   - name: Taking snapshot ...
     amazon.aws.ec2_snapshot:
