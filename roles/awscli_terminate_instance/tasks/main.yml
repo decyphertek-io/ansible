@@ -1,6 +1,20 @@
     
+    - name: Check the info of your instances. 
+      shell: sudo aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]'
+      register: aws_check
+    - debug: var=aws_check.stdout
+  
+    - pause:
+        prompt: "What instance do you want to Terminate"
+        echo: yes
+      register: result
+    - set_fact:
+        instance: "{{result.user_input}}"
+    - debug:
+        var: instance
+    
     - name: Terminate Instance IDs
       shell: sudo aws ec2 terminate-instances --instance-ids "{{instance}}"
-      register: terminate
-    - debug: var=terminate
+      register: stop
+    - debug: var=stop
     

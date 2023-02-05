@@ -4,7 +4,7 @@
     - debug: var=aws_check.stdout
   
     - pause:
-        prompt: "What instance do you want to terminate"
+        prompt: "What instance do you want to stop"
         echo: yes
       register: result
     - set_fact:
