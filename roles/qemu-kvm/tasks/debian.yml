@@ -38,3 +38,23 @@
         proto: tcp
         port: '9090'
       when: ansible_os_family == 'Debian'
+
+    # This fixes Software Updates not showing 
+    - name: Copy Netplan config.
+      copy:
+        src: /etc/ansible/roles/qemu-kvm/01-network-manager-all.yaml
+        dest: /etc/netplan/01-network-manager-all.yaml
+        backup: yes  
+      when: ansible_os_family == 'Debian'
+
+    - name: Apply netplan changes
+      command: netplan apply
+      
+    - name: Enable & Start Networkmanager.
+      service:
+        name: Networkmanager
+        state: restarted
+        enabled: yes
+      when: ansible_os_family == 'Debian'
+   
+    
