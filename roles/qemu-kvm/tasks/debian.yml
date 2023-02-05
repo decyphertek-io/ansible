@@ -38,7 +38,7 @@
         port: '9090'
       when: ansible_os_family == 'Debian'
 
-    # This fixes Software Updates not showing 
+    # This should fix Software Updates not showing - Work in progress / testing. 
     - name: Copy Netplan config.
       copy:
         src: /etc/ansible/roles/qemu-kvm/01-network-manager-all.yaml
