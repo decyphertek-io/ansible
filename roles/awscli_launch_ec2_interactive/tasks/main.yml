@@ -13,7 +13,7 @@
         echo: yes
       register: result_build
     - set_fact:
-        region: "{{result_build.user_input}}"
+        build: "{{result_build.user_input}}"
     - debug:
         var: build
    
@@ -22,7 +22,7 @@
         echo: yes
       register: result_imageid
     - set_fact:
-        region: "{{result_imageid.user_input}}"
+        imageid: "{{result_imageid.user_input}}"
     - debug:
         var: imageid
    
@@ -31,7 +31,7 @@
         echo: yes
       register: result_type
     - set_fact:
-        region: "{{result_type.user_input}}"
+        type: "{{result_type.user_input}}"
     - debug:
         var: type
 
@@ -40,7 +40,7 @@
         echo: yes
       register: result_keyname
     - set_fact:
-        region: "{{result_keyname.user_input}}"
+        keyname: "{{result_keyname.user_input}}"
     - debug:
         var: keyname
 
@@ -49,7 +49,7 @@
         echo: yes
       register: result_subnet
     - set_fact:
-        region: "{{result_subnet.user_input}}"
+        subnet: "{{result_subnet.user_input}}"
     - debug:
         var: subnet
 
@@ -58,7 +58,7 @@
         echo: yes
       register: result_sg
     - set_fact:
-        region: "{{result_sg.user_input}}"
+        sg: "{{result_sg.user_input}}"
     - debug:
         var: sg
 
