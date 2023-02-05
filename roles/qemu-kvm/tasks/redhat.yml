@@ -41,7 +41,7 @@
         permanent: true
         state: enabled
 
-    - name: permit traffic in default zone for Cokcpit.  
+    - name: Permit traffic in default zone for Cockpit.  
       ansible.posix.firewalld:
         port: 9090/tcp
         permanent: true

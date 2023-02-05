@@ -2,18 +2,18 @@
     - pause:
         prompt: "What region whould you like to deploy to?"
         echo: yes
-      register: result_region
+      register: result1
     - set_fact:
-        region: "{{result_region.user_input}}"
+        region: "{{result1.user_input}}"
     - debug:
         var: region
    
     - pause:
         prompt: "What would you like to name the build"
         echo: yes
-      register: result_build
+      register: result2
     - set_fact:
-        build: "{{result_build.user_input}}"
+        build: "{{result2.user_input}}"
     - debug:
         var: build
    
