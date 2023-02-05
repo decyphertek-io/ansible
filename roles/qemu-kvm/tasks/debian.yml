@@ -22,14 +22,13 @@
         name: libvirtd
         state: started
         enabled: yes
-      when: ansible_os_family == 'Debian'
-
+    
     - name: Enable & Start Cockpit.
       service:
         name: cockpit.socket
         state: started
         enabled: yes
-      when: ansible_os_family == 'Debian'
+      
     
     - name: Allow incoming to port 9090.
       ufw:
@@ -49,6 +48,7 @@
 
     - name: Apply netplan changes
       command: netplan apply
+      when: ansible_os_family == 'Debian'
       
     - name: Enable & Start Networkmanager.
       service:
