@@ -1,3 +1,7 @@
+# Currently only works when vars prompt is set. The issue is that you have to run awscli_get info seperately
+# Replacing - pause and prompt works on stop and terminate instance, doesnt work here when called  multiple times??
+# Work in progress......
+
 - name: Launch an Ec2 Instance interactively
   hosts: localhost
   collections: amazon.aws
