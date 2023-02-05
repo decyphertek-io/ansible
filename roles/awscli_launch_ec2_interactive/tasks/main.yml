@@ -1,0 +1,85 @@
+ 
+    - pause:
+        prompt: "What region whould you like to deploy to?"
+        echo: yes
+      register: result_region
+    - set_fact:
+        region: "{{result_region.user_input}}"
+    - debug:
+        var: region
+   
+    - pause:
+        prompt: "What would you like to name the build"
+        echo: yes
+      register: result_build
+    - set_fact:
+        region: "{{result_build.user_input}}"
+    - debug:
+        var: build
+   
+    - pause:
+        prompt: "What is the imageid?"
+        echo: yes
+      register: result_imageid
+    - set_fact:
+        region: "{{result_imageid.user_input}}"
+    - debug:
+        var: imageid
+   
+    - pause:
+        prompt: "What instance type would you like to use?"
+        echo: yes
+      register: result_type
+    - set_fact:
+        region: "{{result_type.user_input}}"
+    - debug:
+        var: type
+
+    - pause:
+        prompt: "What ssh key would you like to use?"
+        echo: yes
+      register: result_keyname
+    - set_fact:
+        region: "{{result_keyname.user_input}}"
+    - debug:
+        var: keyname
+
+    - pause:
+        prompt: "What VPC Subnet would you like to use?"
+        echo: yes
+      register: result_subnet
+    - set_fact:
+        region: "{{result_subnet.user_input}}"
+    - debug:
+        var: subnet
+
+    - pause:
+        prompt: "What security group would you like to use?"
+        echo: yes
+      register: result_sg
+    - set_fact:
+        region: "{{result_sg.user_input}}"
+    - debug:
+        var: sg
+
+    - name: Setup an Ec2 instance 
+      amazon.aws.ec2_instance:
+        aws_profile: "{{region}}"
+        name: "{{build}}"
+        image_id: "{{imageid}}"
+        instance_type: "{{type}}"
+        key_name: "{{keyname}}"
+        vpc_subnet_id: "{{subnet}}"
+        security_group: "{{sg}}"
+        network:
+          assign_public_ip: true
+        wait: yes
+        tags:
+          Environment: 
+      register: instance
+    - debug: var=instance
+
+    - name: Check If instance was depoyed. 
+      shell: sudo aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]'
+      register: aws_check
+    - debug: var=aws_check.stdout
