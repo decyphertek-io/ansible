@@ -1,0 +1,37 @@
+    - pause:
+        prompt: "What region would you like to deploy to? "
+        echo: True
+      register: result1
+    #- set_fact: region="{{rseult1.user_input}}"
+    
+    - pause:
+        prompt: "What would you like to name the build"
+        echo: yes
+      register: result2
+    #- debug: var=build.user_input
+   
+    - pause:
+        prompt: "What is the imageid?"
+        echo: yes
+      register: result3
+   
+    - pause:
+        prompt: "What instance type would you like to use?"
+        echo: yes
+      register: result4
+
+    - pause:
+        prompt: "What ssh key would you like to use?"
+        echo: yes
+      register: result5
+  
+    - pause:
+        prompt: "What VPC Subnet would you like to use?"
+        echo: yes
+      register: result6
+    
+    - pause:
+        prompt: "What security group would you like to use?"
+        echo: yes
+      register: result7
+    

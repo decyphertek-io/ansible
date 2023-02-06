@@ -1,20 +1,19 @@
-# Currently only works when vars prompt is set. The issue is that you have to run awscli_get info seperately.
-# The vars_prompt always runs first, so unable to acquire awscli_get_info to set the varaibles. 
-# Replacing - pause and prompt works on stop and terminate instance, doesnt work here when called  multiple times??
-# Work in progress......
-# https://nixzie.com/ansible_user_input/
-
 - name: Launch an Ec2 Instance interactively
   hosts: localhost
   collections: amazon.aws
 
-  #vars_prompt:
-    #- name: username
-      #prompt: "What is your username?"
-      #private: no
-  
+  vars:
+    - region: '{{result1.user_input}}'
+    - build: '{{result2.user_input}}'
+    - imageid: '{{result3.user_input}}'
+    - type: '{{result4.user_input}}'
+    - keyname: '{{result5.user_input}}'
+    - vpc_subnet: '{{result6.user_input}}'
+    - security_group: '{{result7.user_input}}'
+
   roles:
-    #- awscli_get_info
+    - awscli_get_info
+    - aws_input
     - awscli_launch_ec2
 
     
