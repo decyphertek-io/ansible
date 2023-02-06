@@ -20,6 +20,7 @@
           - cockpit-session-recording
           - firewalld 
           - firewall-config
+          - wget
         state: latest
       when: ansible_os_family == 'RedHat'
 
