@@ -2,63 +2,63 @@
     - pause:
         prompt: "What region whould you like to deploy to?"
         echo: yes
-      register: result
+      register: result1
     - set_fact:
-        region: "{{result.user_input}}"
+        region: "{{result1.user_input}}"
     - debug:
         var: region
    
     - pause:
         prompt: "What would you like to name the build"
         echo: yes
-      register: result
+      register: result2
     - set_fact:
-        build: "{{result.user_input}}"
+        build: "{{result2.user_input}}"
     - debug:
         var: build
    
     - pause:
         prompt: "What is the imageid?"
         echo: yes
-      register: result
+      register: result3
     - set_fact:
-        imageid: "{{result.user_input}}"
+        imageid: "{{result3.user_input}}"
     - debug:
         var: imageid
    
     - pause:
         prompt: "What instance type would you like to use?"
         echo: yes
-      register: result
+      register: result4
     - set_fact:
-        type: "{{result.user_input}}"
+        type: "{{result4.user_input}}"
     - debug:
         var: type
 
     - pause:
         prompt: "What ssh key would you like to use?"
         echo: yes
-      register: result
+      register: result5
     - set_fact:
-        keyname: "{{result.user_input}}"
+        keyname: "{{result5.user_input}}"
     - debug:
         var: keyname
 
     - pause:
         prompt: "What VPC Subnet would you like to use?"
         echo: yes
-      register: result
+      register: result6
     - set_fact:
-        subnet: "{{result.user_input}}"
+        subnet: "{{result6.user_input}}"
     - debug:
         var: subnet
 
     - pause:
         prompt: "What security group would you like to use?"
         echo: yes
-      register: result
+      register: result7
     - set_fact:
-        sg: "{{result.user_input}}"
+        sg: "{{result7.user_input}}"
     - debug:
         var: sg
 
