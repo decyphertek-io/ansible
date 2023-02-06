@@ -14,7 +14,7 @@
       #private: no
   
   roles:
-    - awscli_get_info
+    #- awscli_get_info
     - awscli_launch_ec2
 
     

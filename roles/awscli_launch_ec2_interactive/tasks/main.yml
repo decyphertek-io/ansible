@@ -1,39 +1,32 @@
  
+    - name: Return motd to registered var
+      command: echo " Welcome to the matrix , Case. "
+      register: echo
+    - debug: var=echo
+    
     - pause:
-        prompt: "What region whould you like to deploy to?"
-        echo: yes
-      register: result1
-    - set_fact:
-        region: "{{result1.user_input}}"
-    - debug:
-        var: region
-   
+        prompt: "What region would you like to deploy to? "
+        echo: True
+      register: region
+    - debug: var=region
+    
     - pause:
         prompt: "What would you like to name the build"
         echo: yes
-      register: result2
-    - set_fact:
-        build: "{{result2.user_input}}"
-    - debug:
-        var: build
+      register: build
+    - debug: var=build.user_input
    
     - pause:
         prompt: "What is the imageid?"
         echo: yes
-      register: result3
-    - set_fact:
-        imageid: "{{result3.user_input}}"
-    - debug:
-        var: imageid
+      register: imageid
+    - debug: var=imageid.user_input
    
     - pause:
         prompt: "What instance type would you like to use?"
         echo: yes
-      register: result4
-    - set_fact:
-        type: "{{result4.user_input}}"
-    - debug:
-        var: type
+      register: instance
+    - debug: var=instance.user_input
 
     - pause:
         prompt: "What ssh key would you like to use?"
@@ -65,7 +58,7 @@
     - name: Setup an Ec2 instance 
       amazon.aws.ec2_instance:
         aws_profile: "{{region}}"
-        name: "{{build}}"
+        name: "{{build.user_input}}"
         image_id: "{{imageid}}"
         instance_type: "{{type}}"
         key_name: "{{keyname}}"
@@ -76,8 +69,8 @@
         wait: yes
         tags:
           Environment: 
-      register: instance
-    - debug: var=instance
+      register: ec2
+    - debug: var=ec2
 
     - name: Check If instance was depoyed. 
       shell: sudo aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]'
