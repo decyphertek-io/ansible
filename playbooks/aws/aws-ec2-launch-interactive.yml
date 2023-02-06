@@ -2,6 +2,7 @@
 # The vars_prompt always runs first, so unable to acquire awscli_get_info to set the varaibles. 
 # Replacing - pause and prompt works on stop and terminate instance, doesnt work here when called  multiple times??
 # Work in progress......
+# https://nixzie.com/ansible_user_input/
 
 - name: Launch an Ec2 Instance interactively
   hosts: localhost
