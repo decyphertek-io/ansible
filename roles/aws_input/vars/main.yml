@@ -1,6 +1,7 @@
-#region:
-#build: 
-#imageid:
-#keyname: 
-#vpc_subnet:
-#security_group:
+region: '{{result1.user_input}}'
+build: '{{result2.user_input}}'
+imageid: '{{result3.user_input}}'
+type: '{{result4.user_input}}'
+keyname: '{{result5.user_input}}'
+vpc_subnet: '{{result6.user_input}}'
+security_group: '{{result7.user_input}}'

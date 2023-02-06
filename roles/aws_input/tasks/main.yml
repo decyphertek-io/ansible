@@ -1,14 +1,13 @@
     - pause:
         prompt: "What region would you like to deploy to? "
-        echo: True
+        echo: yes
       register: result1
-    #- set_fact: region="{{rseult1.user_input}}"
+    #- set_fact: region='{{result1.user_input}}''
     
     - pause:
         prompt: "What would you like to name the build"
         echo: yes
       register: result2
-    #- debug: var=build.user_input
    
     - pause:
         prompt: "What is the imageid?"
