@@ -1,3 +1,5 @@
+# ChatGPT Helped write the playbook, modded slighlty to get it working.
+
 - name: Generate text with OpenAI GPT-3
   hosts: localhost
 
@@ -7,7 +9,7 @@
       private: yes
     - name: prompt_text
       prompt: "Enter the prompt text"
-      
+
   tasks:
     - name: Generate text with OpenAI GPT-3
       uri:
