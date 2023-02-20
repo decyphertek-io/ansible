@@ -1,4 +1,4 @@
-- name: My playbook
+- name: Pause Prompt
   hosts: localhost
 
   task:
