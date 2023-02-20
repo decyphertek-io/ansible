@@ -8,7 +8,8 @@
       prompt: "Enter your OpenAI API key"
       private: yes
     - name: prompt_text
-      prompt: "Enter the prompt text"
+      prompt: "What would you like to ask Chatgpt?"
+      private: no
 
   tasks:
     - name: Generate text with OpenAI GPT-3
