@@ -1,3 +1,7 @@
+- name: My playbook
+  hosts: localhost
+
+  task:
     - name: Prompt for region
       pause:
         prompt: "What region would you like to deploy to?"
@@ -39,7 +43,5 @@
         prompt: "What security group would you like to use?"
         echo: yes
       register: result7
-    
-    
-    
-    
+
+ 
