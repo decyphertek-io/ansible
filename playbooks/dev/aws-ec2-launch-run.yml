@@ -1,0 +1,46 @@
+# Testing still , Got ChatGPT to make this playbook
+# I feed it my aws-ec2-launch and asked it how i can 
+# Run a playbook right after launching an ec2 instance
+
+- name: Setup an EC2 instance
+  amazon.aws.ec2_instance:
+    aws_profile: "{{ region }}"
+    name: "{{ build }}"
+    image_id: "{{ imageid }}"
+    instance_type: "{{ type }}"
+    key_name: "{{ keyname }}"
+    vpc_subnet_id: "{{ vpc_subnet }}"
+    security_group: "{{ security_group }}"
+    network:
+      assign_public_ip: true
+    wait: yes
+    tags:
+      Environment: 
+
+  register: ec2_instance
+
+- name: Debug EC2 instance
+  debug:
+    var: ec2_instance
+
+- name: Wait for EC2 instance to become running
+  local_action:
+    module: wait_for
+    host: "{{ ec2_instance.instance.public_ip_address }}"
+    port: 22
+    search_regex: OpenSSH
+    delay: 10
+    timeout: 320
+    state: started
+
+- name: Debug public IP
+  debug:
+    var: ec2_instance.instance.public_ip_address
+
+- name: Run another playbook against EC2 instance
+  hosts: "{{ ec2_instance.instance.public_ip_address }}"
+  gather_facts: no
+  tasks:
+    - name: Example task
+      debug:
+        msg: "Hello, World!"
