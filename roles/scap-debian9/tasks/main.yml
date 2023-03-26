@@ -1,6 +1,5 @@
 # Debian 9 ds-1.2 ANSSI-DAT-NT28 High Enforced ( Level 50) 
 
-  tasks:
     - name: Find /etc/sudoers.d/ files
       find:
         paths:
