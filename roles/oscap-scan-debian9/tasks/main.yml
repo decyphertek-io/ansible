@@ -1,11 +1,11 @@
     - name: Debian9 Oscap Scan
       shell: | 
             mkdir /opt/ssg/
-            mkdir /opt/ssg-reports
+            mkdir /opt/ssg-reports/
 
     - name: Copy Your SSG over. ( Debian 9 In this case )
       copy:
-        src: /etc/ansible/roles/oscap/files/ssg-debian9-ds-1.2.xml
+        src: /etc/ansible/roles/oscap-scan-debian9/files/ssg-debian9-ds-1.2.xml
         dest: /opt/ssg/ssg-debian9-ds-1.2.xml
         backup: yes  
       when: ansible_os_family == 'Debian'
