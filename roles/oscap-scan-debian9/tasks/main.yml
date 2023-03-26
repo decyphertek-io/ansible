@@ -14,6 +14,21 @@
       shell: |
             oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_standard \
             --results /opt/ssg-reports/Debian-9-ssg-results.xml \
-            --report /opt/ssg-reports/Debian-9-ssg-results.html \ 
+            --report /opt/ssg-reports/Debian-9-ssg-report.html \ 
             --cpe scap_org.open-scap_cref_ssg-debian9-cpe-dictionary.xml \
             /opt/ssg/ssg-debian9-ds-1.2.xml 
+
+    - name: Copy over the report to the Ansible Server. 
+      copy:
+        src: /opt/ssg-reports/Debian-9-ssg-report.html
+        dest: /etc/ansible/roles/oscap-scan-debian9/files/reports/Debian-9-ssg-report.html
+        backup: yes  
+      when: ansible_os_family == 'Debian'
+
+    - name: Copy over the results in xml to the Ansible Server. 
+      copy:
+        src: /opt/ssg-reports/Debian-9-ssg-results.xml
+        dest: /etc/ansible/roles/oscap-scan-debian9/files/reports/Debian-9-ssg-results.xml
+        backup: yes  
+      when: ansible_os_family == 'Debian'
+      
