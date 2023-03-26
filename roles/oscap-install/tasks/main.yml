@@ -1,0 +1,10 @@
+    - name: Debian - Update & Oscap
+      apt:
+        update_cache: true
+        pkg:
+          - libopenscap8
+        state: latest
+      when: ansible_os_family == 'Debian'
+
+   
+ 
