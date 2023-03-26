@@ -4,4 +4,5 @@
   roles:
     - oscap-install
     - scap-debian9
+    - auditd
     - oscap-scan-debian9
