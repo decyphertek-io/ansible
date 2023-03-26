@@ -1,0 +1,7 @@
+- name: Disa Stig Debian 9 Remediation
+  hosts: all
+
+  roles:
+    - oscap-install
+    - scap-debian9
+    - oscap-scan-debian9
