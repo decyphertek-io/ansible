@@ -18,12 +18,13 @@
       when: ansible_os_family == 'Debian'
 
     - name: Run an oscap scan and recieve results. 
-      command: oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_np_nt28_high /opt/ssg/ssg-debian9-ds-1.2.xml > /opt/ssg-reports/Debian9-Report.txt
-   
-    - name: Report Output
-      command: cat /opt/ssg-reports/Debian9-Report.txt
-      register: oscap
-    - debug: var=oscap.stdout_lines
+      shell: | 
+            oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_np_nt28_high /opt/ssg/ssg-debian9-ds-1.2.xml > /opt/ssg-reports/Debian9-Report.txt
+            cat /opt/ssg-reports/Debian9-Report.txt
+      register: shell
+    - debug: var=shell.stdout_lines
+
+ 
 
             
            

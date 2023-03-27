@@ -2,13 +2,13 @@
       apt:
         update_cache: true
         pkg:
-          - rsyslog
+          - syslog-ng
         state: latest
       when: ansible_os_family == 'Debian'
 
     - name: Enable & Start Rsyslog
       service:
-        name: rsyslog
+        name: syslog-ng
         state: started
         enabled: yes
       when: ansible_os_family == 'Debian'
