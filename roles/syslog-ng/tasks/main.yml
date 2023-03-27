@@ -1,4 +1,4 @@
-    - name: Debian - Update & Install Rsyslog
+    - name: Debian - Update & Install Syslog-ng
       apt:
         update_cache: true
         pkg:
