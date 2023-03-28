@@ -3,8 +3,6 @@
   ignore_errors: true
 
   roles:
-    - debian-upgrade
     - oscap-install
-    - auditd
     - scap-debian9
     - oscap-scan-debian9
