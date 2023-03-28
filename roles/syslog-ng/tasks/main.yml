@@ -6,7 +6,7 @@
         state: latest
       when: ansible_os_family == 'Debian'
 
-    - name: Enable & Start Rsyslog
+    - name: Enable & Start syslog-ng
       service:
         name: syslog-ng
         state: started
