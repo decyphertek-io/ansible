@@ -39,7 +39,6 @@
         name: auditd
         state: started
         enabled: yes
-      register: auditd
-    - debug: var=auditd
+  
 
   
