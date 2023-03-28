@@ -8,7 +8,5 @@
       apt:
         update_cache: yes
         upgrade: yes
-        autoclean: yes
-        autoremove: yes
         install_recommends: no
       when: ansible_os_family == 'Debian'
