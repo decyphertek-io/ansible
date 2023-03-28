@@ -5,7 +5,6 @@
   roles:
     - debian-upgrade
     - oscap-install
-    - scap-debian9
     - auditd
-    - syslog-ng
+    - scap-debian9
     - oscap-scan-debian9
