@@ -17,7 +17,7 @@
       register: apt
     - debug: var=apt
 
-    - name: Install npm & generate Jupyterhub config
+    - name: Join your system to AD.
       shell: |
         sudo realm -v discover "{{domain}}"
         echo "{{password}}" | realm join -U "{{username}}" ad1.example.com
