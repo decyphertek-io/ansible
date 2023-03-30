@@ -1,4 +1,4 @@
-- name: Disa Stig Debian 9 Remediation
+- name: CIS Debian 9 Remediation
   hosts: all
   ignore_errors: true
 
