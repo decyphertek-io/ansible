@@ -1,4 +1,3 @@
-
     - name: Debian - Update & Install auditd
       apt:
         update_cache: true
