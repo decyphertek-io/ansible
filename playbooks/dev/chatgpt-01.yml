@@ -1,4 +1,4 @@
-# ChatGPT Helped write the playbook, modded slighlty to get it working.
+# Issues , doesnt work. 
 
 - name: Generate text with OpenAI GPT-3
   hosts: localhost
@@ -14,13 +14,14 @@
   tasks:
     - name: Generate text with OpenAI GPT-3
       uri:
-        url: "https://api.openai.com/v1/engines/davinci-codex/completions"
+        url: "https://api.openai.com/v1/chat/completions"
         method: POST
         body_format: json
         headers:
           Content-Type: "application/json"
           Authorization: "Bearer {{ openai_api_key }}"
         body:
+          Model: "text-davinci-003"
           prompt: "{{ prompt_text }}"
           max_tokens: 100
           n: 1
