@@ -1,15 +1,15 @@
 ---
 ###############################################################################
 #
-# Ansible Playbook for Standard System Security Profile for Debian 11
+# Ansible Playbook for Standard System Security Profile for Debian 10
 #
 # Profile Description:
 # This profile contains rules to ensure standard security baseline
-# of a Debian 11 system. Regardless of your system's workload
+# of a Debian 10 system. Regardless of your system's workload
 # all of these checks should pass.
 #
 # Profile ID:  xccdf_org.ssgproject.content_profile_standard
-# Benchmark ID:  xccdf_org.ssgproject.content_benchmark_DEBIAN-11
+# Benchmark ID:  xccdf_org.ssgproject.content_benchmark_DEBIAN-10
 # Benchmark Version:  0.1.67
 # XCCDF Version:  1.2
 #

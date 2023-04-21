@@ -1,15 +1,15 @@
 ---
 ###############################################################################
 #
-# Ansible Playbook for Standard System Security Profile for Debian 11
+# Ansible Playbook for Standard System Security Profile for Ubuntu 16.04
 #
 # Profile Description:
 # This profile contains rules to ensure standard security baseline
-# of a Debian 11 system. Regardless of your system's workload
+# of an Ubuntu 16.04 system. Regardless of your system's workload
 # all of these checks should pass.
 #
 # Profile ID:  xccdf_org.ssgproject.content_profile_standard
-# Benchmark ID:  xccdf_org.ssgproject.content_benchmark_DEBIAN-11
+# Benchmark ID:  xccdf_org.ssgproject.content_benchmark_UBUNTU-XENIAL
 # Benchmark Version:  0.1.67
 # XCCDF Version:  1.2
 #
@@ -1546,6 +1546,51 @@
       - low_disruption
       - no_reboot_needed
       - service_ntp_enabled
+
+
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - NIST-800-53-AU-8(1)(a)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.4
+      - enable_strategy
+      - high_severity
+      - low_complexity
+      - low_disruption
+      - no_reboot_needed
+      - service_timesyncd_enabled
+
+    - name: Enable service systemd-timesyncd
+      block:
+
+      - name: Gather the package facts
+        package_facts:
+          manager: auto
+
+      - name: Enable service systemd-timesyncd
+        service:
+          name: systemd-timesyncd
+          enabled: 'yes'
+          state: started
+          masked: 'no'
+        when:
+        - '"systemd" in ansible_facts.packages'
+      when:
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      - ( not ( "chrony" in ansible_facts.packages ) and not ( "ntp" in ansible_facts.packages
+        ) )
+      tags:
+      - NIST-800-53-AU-8(1)(a)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.4
+      - enable_strategy
+      - high_severity
+      - low_complexity
+      - low_disruption
+      - no_reboot_needed
+      - service_timesyncd_enabled
 
 
     - name: Set SSH Client Alive Count Max to zero
