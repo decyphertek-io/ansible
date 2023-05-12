@@ -1,0 +1,42 @@
+- name: Add specified repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://archive.canonical.com/ubuntu hardy partner
+    state: present
+
+- name: Add specified repository into sources list using specified filename
+  ansible.builtin.apt_repository:
+    repo: deb http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
+
+- name: Add source repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb-src http://archive.canonical.com/ubuntu hardy partner
+    state: present
+
+- name: Remove specified repository from sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://archive.canonical.com/ubuntu hardy partner
+    state: absent
+
+- name: Add nginx stable repository from PPA and install its signing key on Ubuntu target
+  ansible.builtin.apt_repository:
+    repo: ppa:nginx/stable
+
+- name: Add nginx stable repository from PPA and install its signing key on Debian target
+  ansible.builtin.apt_repository:
+    repo: 'ppa:nginx/stable'
+    codename: trusty
+
+- name: One way to avoid apt_key once it is removed from your distro
+  block:
+    - name: somerepo |no apt key
+      ansible.builtin.get_url:
+        url: https://download.example.com/linux/ubuntu/gpg
+        dest: /etc/apt/trusted.gpg.d/somerepo.asc
+
+- name: somerepo | apt source
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/myrepo.asc] https://download.example.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
