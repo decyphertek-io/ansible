@@ -1,0 +1,57 @@
+    # Work In progress....
+    - name: Debian - Update & Install Modsec requirements
+      apt:
+        update_cache: true
+        pkg:
+          - git
+          - gcc
+          - make
+          - build-essential
+          - autoconf
+          - automake
+          - libtool
+          - libcurl4-openssl-dev 
+          - liblua5.3-dev 
+          - libfuzzy-dev 
+          - ssdeep 
+          - gettext 
+          - pkg-config 
+          - libpcre3 
+          - libpcre3-dev 
+          - libxml2 
+          - libxml2-dev 
+          - libcurl4 
+          - libgeoip-dev 
+          - libyajl-dev 
+          - doxygen 
+          - libpcre++-dev 
+          - libpcre2-16-0 
+          - libpcre2-dev 
+          - libpcre2-posix3 
+        state: latest
+      when: ansible_os_family == 'Debian'
+
+    - name: Clone the Modescurity Repo.
+      shell: |
+            sudo mkdir /usr/local/src/nginx && cd /usr/local/src/nginx
+            sudo su -c "apt source nginx"
+            sudo git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity /usr/local/src/ModSecurity/
+            cd /usr/local/src/ModSecurity/
+            sudo git submodule init
+            sudo git submodule update
+            sudo ./build.sh
+            sudo ./configure
+            sudo make
+            sudo make install
+            sudo git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git /usr/local/src/ModSecurity-nginx/
+            cd /usr/local/src/nginx/nginx-1.*.*
+            sudo apt build-dep nginx -y && sudo apt install -y uuid-dev
+            sudo ./configure --with-compat --add-dynamic-module=/usr/local/src/ModSecurity-nginx
+            sudo make modules
+            sudo cp /usr/local/src/nginx/nginx-1.24.0/objs/ngx_http_modsecurity_module.so /etc/nginx/modules/
+
+
+
+       
+          
+   
