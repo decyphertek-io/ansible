@@ -1,17 +1,8 @@
-    - name: Add Nginx Offical Repo deb - Ubuntu 22.04 LTS
-      apt_repository:
-        repo: deb https://nginx.org/packages/ubuntu/ jammy nginx
-        state: present
-
-    - name: Add Nginx Offical Repo deb-src - Ubuntu 22.04 LTS
-      apt_repository:
-        repo: deb-src https://nginx.org/packages/ubuntu/ jammy nginx
-        state: present
-
-    - name: Add Nginx keys.
+    - name: Add Nginx keys and Repo. 
       shell: |
-            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
-            sudo mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/nginx.gpg
+            curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg > /dev/null
+            gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
 
     - name: Debian - Update & Install nginx
       apt:
