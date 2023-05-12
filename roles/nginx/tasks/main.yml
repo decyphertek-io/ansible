@@ -1,7 +1,12 @@
     - name: Add Nginx Offical Repo deb - Ubuntu 22.04 LTS
       apt_repository:
-      repo: deb https://nginx.org/packages/ubuntu/ jammy nginx
-      state: present
+        repo: deb https://nginx.org/packages/ubuntu/ jammy nginx
+        state: present
+
+    - name: Add Nginx Offical Repo deb-src - Ubuntu 22.04 LTS
+      apt_repository:
+        repo: deb-src https://nginx.org/packages/ubuntu/ jammy nginx
+        state: present
 
     - name: Add Nginx keys.
       shell: |
