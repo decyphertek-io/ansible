@@ -1,0 +1,5 @@
+- name: Nginx install & Setup
+  hosts: all
+
+  roles:
+    - nginx
