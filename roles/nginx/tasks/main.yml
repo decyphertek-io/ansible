@@ -25,7 +25,7 @@
       register: conf
     - debug: var=conf
     
-    - name: Enable & Start Auditd
+    - name: Enable & Start Nginx
       service:
         name: nginx
         state: started

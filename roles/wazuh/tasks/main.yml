@@ -1,0 +1,40 @@
+
+    - name: Update & Install curl
+      apt:
+        update_cache: true
+        pkg:
+          - curl
+        state: latest
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Wazuh all in one. 
+      shell: | 
+             curl -sO https://packages.wazuh.com/4.4/wazuh-install.sh
+             sudo bash wazuh-install.sh -a
+      register: wazuh
+    - debug: var=wazuh
+
+    - name: Enable & Start Wazuh-Indexer
+      service:
+        name: wazuh-indexer
+        state: started
+        enabled: yes
+      register: indexer
+    - debug: var=indexer.stdout_lines
+
+    - name: Enable & Start Wazuh-Server
+      service:
+        name: wazuh-server
+        state: started
+        enabled: yes
+      register: server
+    - debug: var=server.stdout_lines
+
+    - name: Enable & Start Wazuh-Dashboard
+      service:
+        name: wazuh-dashboard
+        state: started
+        enabled: yes
+      register: dashboard
+    - debug: var=dashboard.stdout_lines
+

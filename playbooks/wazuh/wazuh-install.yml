@@ -1,0 +1,6 @@
+- name: Wazuh install & Setup
+  hosts: all
+
+  roles:
+    - debian-upgrade
+    - wazuh

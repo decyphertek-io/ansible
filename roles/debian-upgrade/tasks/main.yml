@@ -10,3 +10,8 @@
         upgrade: yes
         install_recommends: no
       when: ansible_os_family == 'Debian'
+
+    - name: Remove old packages
+      shell: |
+            sudo apt autoremove -y
+            sudo apt autoclean -y
