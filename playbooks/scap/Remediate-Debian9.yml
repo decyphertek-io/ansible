@@ -1,8 +1,0 @@
-- name: CIS Debian 9 Remediation
-  hosts: all
-  ignore_errors: true
-
-  roles:
-    - oscap-install
-    - scap-debian9
-    - oscap-scan-debian9
