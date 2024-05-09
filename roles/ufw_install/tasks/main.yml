@@ -1,4 +1,3 @@
-
     - name: Debian - Update & Install UFW
       apt:
         update_cache: true
@@ -6,20 +5,18 @@
           - ufw
         state: latest
       when: ansible_os_family == 'Debian'
-   
-    - name: Allow incoming to port 22
+
+    - name: Limit incoming SSH connections to avoid brute-force attacks
       ufw:
-        rule: allow
+        rule: limit
         direction: in
-        proto: tcp
         port: '22'
+        proto: tcp
       when: ansible_os_family == 'Debian'
-    
-    - name: Enable & Start ufw
-      service:
-        name: ufw
-        state: started
-        enabled: yes
+
+    - name: Enable ufw
+      ufw:
+        state: enabled
       when: ansible_os_family == 'Debian'
     
 
