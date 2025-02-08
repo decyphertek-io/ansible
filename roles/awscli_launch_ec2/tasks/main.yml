@@ -1,22 +1,22 @@
  
-    - name: Setup an Ec2 instance 
-      amazon.aws.ec2_instance:
-        aws_profile: "{{region}}"
-        name: "{{build}}"
-        image_id: "{{imageid}}"
-        instance_type: "{{type}}"
-        key_name: "{{keyname}}"
-        vpc_subnet_id: "{{vpc_subnet}}"
-        security_group: "{{security_group}}"
-        network:
-          assign_public_ip: true
-        wait: yes
-        tags:
-          Environment: 
-      register: instance
-    - debug: var=instance
+- name: Setup an Ec2 instance 
+  amazon.aws.ec2_instance:
+    aws_profile: "{{region}}"
+    name: "{{build}}"
+    image_id: "{{imageid}}"
+    instance_type: "{{type}}"
+    key_name: "{{keyname}}"
+    vpc_subnet_id: "{{vpc_subnet}}"
+    security_group: "{{security_group}}"
+    network:
+      assign_public_ip: true
+    wait: yes
+    tags:
+      Environment: 
+  register: instance
+- debug: var=instance
 
-    - name: Check If instance was depoyed. 
-      shell: sudo aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]'
-      register: aws_check
-    - debug: var=aws_check.stdout
+- name: Check If instance was depoyed. 
+  shell: sudo aws ec2 describe-instances --query 'Reservations[].Instances[].[State.Name, InstanceId, ImageId, InstanceType, PublicIpAddress, SubnetId, VpcId,Tags[?Key==`Name`]| [0].Value]'
+  register: aws_check
+- debug: var=aws_check.stdout
