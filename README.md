@@ -3,27 +3,29 @@ Install Ansible/Basic Setup
 
 Ubuntu Install
 ---------------
+```
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt update
+sudo apt install ansible
+# Keygen can generate keys
+ssh-keygen -t rsa -b 4096
+# Copy id_rsa.pub > Client servers ~/.ssh/authorized_keys
+sudo chmod 400 ~/.ssh/id_rsa
+```   
 
-    $ sudo apt update
-    $ sudo apt install software-properties-common
-    $ sudo add-apt-repository --yes --update ppa:ansible/ansible
-    $ sudo apt update
-    $ sudo apt install ansible
-    * Keygen can generate keys
-    $ ssh-keygen -t rsa -b 4096
-    * Copy id_rsa.pub > Client servers ~/.ssh/authorized_keys
-    $ sudo chmod 400 ~/.ssh/id_rsa
-   
 Install Ansible on Mac
 ----------------------
+```
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+export PATH=$HOME/bin:~/Library/Python/3.8/bin:$PATH
+python3 get-pip.py --user
+python3 -m pip install --upgrade pip
+python3 -m pip install --user ansible
+python3 -m pip install --user paramiko
+``` 
 
-    $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    $ export PATH=$HOME/bin:~/Library/Python/3.8/bin:$PATH
-    $ python3 get-pip.py --user
-    $ python3 -m pip install --upgrade pip
-    $ python3 -m pip install --user ansible
-    $ python3 -m pip install --user paramiko
- 
 AWS Cli Install/Setup
 ---------------------
 
